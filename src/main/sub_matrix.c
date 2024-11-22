@@ -10,10 +10,12 @@ int sub_matrix(matrix_t *mtr_one, matrix_t *mtr_two, matrix_t **result) {
     stat = ncm_error;
   if (stat == ok) {
     stat = create_matrix(mtr_one->rows, mtr_one->columns, result);
-    matrix_t *res = (*result);
-    for (int i = 0; i < mtr_one->rows && stat == ok; i++)
-      for (int j = 0; j < mtr_one->columns && stat == ok; j++)
-        res->matrix[i][j] = mtr_one->matrix[i][j] - mtr_two->matrix[i][j];
+    if (stat == ok) {
+      matrix_t *res = (*result);
+      for (int i = 0; i < mtr_one->rows && stat == ok; i++)
+        for (int j = 0; j < mtr_one->columns && stat == ok; j++)
+          res->matrix[i][j] = mtr_one->matrix[i][j] - mtr_two->matrix[i][j];
+    }
   }
   return stat;
 }
