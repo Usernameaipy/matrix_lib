@@ -9,5 +9,5 @@ typedef struct matrix_struct {
   int columns;
 } matrix_t;
 enum { ok = 0, ncm_error = 1, calc_error = 2, mem_error = 3 };
-int create_matrix(int, int, matrix_t*);
+int create_matrix(int, int, matrix_t**);
 #endif
