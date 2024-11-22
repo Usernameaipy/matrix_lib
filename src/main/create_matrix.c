@@ -9,10 +9,10 @@ int create_matrix(int rows, int columns, matrix_t **result) {
   *result = (matrix_t *)malloc(sizeof(matrix_t));
   if (!(*result)) stat = mem_error;
   if (stat == ok) {
-    int **mtr = (int **)malloc(sizeof(int *) * rows);
+    double **mtr = (double **)malloc(sizeof(double *) * rows);
     if (mtr) {
       for (int i = 0; i < rows && stat != mem_error; i++) {
-        mtr[i] = (int *)malloc(sizeof(int) * columns);
+        mtr[i] = (double *)malloc(sizeof(double) * columns);
         if (!mtr[i]) stat = mem_error;
       }
       if (stat != ok) {
