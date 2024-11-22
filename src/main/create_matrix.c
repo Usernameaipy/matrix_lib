@@ -2,8 +2,7 @@
 
 int create_matrix(int rows, int columns, matrix_t **result) {
   int stat = ok;
-  if ((rows > INT_MAX || rows < INT_MIN) ||
-      (columns > INT_MAX || columns < INT_MIN))
+  if ((rows > INT_MAX || rows <= 0) || (columns > INT_MAX || columns <= 0))
     stat = ncm_error;
   if (*result) stat = ncm_error;
   *result = (matrix_t *)malloc(sizeof(matrix_t));
