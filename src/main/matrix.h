@@ -18,5 +18,6 @@ int sum_matrix(matrix_t*, matrix_t*, matrix_t**);
 int sub_matrix(matrix_t*, matrix_t*, matrix_t**);
 int mult_number(matrix_t*, double, matrix_t**);
 int mult_matrix(matrix_t*, matrix_t*, matrix_t**);
+int transpose(matrix_t*, matrix_t**);
 void remove_matrix(matrix_t**);
 #endif
