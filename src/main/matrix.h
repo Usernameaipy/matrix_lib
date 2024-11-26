@@ -21,5 +21,7 @@ int mult_matrix(matrix_t*, matrix_t*, matrix_t**);
 int transpose(matrix_t*, matrix_t**);
 int determinant(matrix_t*, double*);
 double recurse_det(matrix_t*);
+int calc_complements(matrix_t*, matrix_t**);
+int get_mtr_calc(int, int, matrix_t*, matrix_t**);
 void remove_matrix(matrix_t**);
 #endif
