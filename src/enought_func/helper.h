@@ -14,4 +14,5 @@ enum { success = 1, failure = 0 };
 #include "stdlib.h"
 int output_matrix(FILE *, matrix_t *);
 int matrix_cp(matrix_t *, matrix_t *);
+int input_matrix(FILE *, matrix_t *);
 #endif
