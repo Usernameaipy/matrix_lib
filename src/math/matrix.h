@@ -14,11 +14,9 @@ enum { success = 1, failure = 0 };
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-
 #include "../enought_func/helper.h"
-#define EPSILON 0.0000001
 int create_matrix(int, int, matrix_t **);
-int eq_matrix(matrix_t *, matrix_t *);
+int eq_matrix(matrix_t *, matrix_t *, int);
 int sum_matrix(matrix_t *, matrix_t *, matrix_t **);
 int sub_matrix(matrix_t *, matrix_t *, matrix_t **);
 int mult_number(matrix_t *, double, matrix_t **);
