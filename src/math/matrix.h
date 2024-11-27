@@ -1,10 +1,5 @@
-#ifndef MATRIX_H
-#define MATRIX_H
-#include <limits.h>
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
-#define EPSILON 0.0000001
+#ifndef STRU_ENUM
+#define STRU_ENUM
 typedef struct matrix_struct {
   double **matrix;
   int rows;
@@ -12,6 +7,14 @@ typedef struct matrix_struct {
 } matrix_t;
 enum { ok = 0, ncm_error = 1, calc_error = 2, mem_error = 3, base = 4 };
 enum { success = 1, failure = 0 };
+#endif
+#ifndef MATRIX_H
+#define MATRIX_H
+#include <limits.h>
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#define EPSILON 0.0000001
 int create_matrix(int, int, matrix_t **);
 int eq_matrix(matrix_t *, matrix_t *);
 int sum_matrix(matrix_t *, matrix_t *, matrix_t **);
