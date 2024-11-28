@@ -6,7 +6,10 @@ int create_matrix(int rows, int columns, matrix_t **result) {
     stat = ncm_error;
   if (*result) stat = ncm_error;
   if (stat == ok) *result = (matrix_t *)malloc(sizeof(matrix_t));
-  if (!(*result) && stat == ok) stat = mem_error;
+  if (!(*result) && stat == ok) {
+    stat = mem_error;
+    *result = NULL;
+  }
   if (stat == ok) {
     double **mtr = (double **)malloc(sizeof(double *) * rows);
     if (mtr) {
@@ -16,17 +19,24 @@ int create_matrix(int rows, int columns, matrix_t **result) {
       }
       if (stat != ok) {
         for (int i = 0; i < rows; i++) {
-          if (mtr[i]) free(mtr[i]);
+          if (!mtr[i]) free(mtr[i]);
         }
-        free(mtr);
+        if (mtr) free(mtr);
+        if (*result) free(*result);
+        *result = NULL;
       }
       if (stat == ok) {
         (*result)->matrix = mtr;
         (*result)->rows = rows;
         (*result)->columns = columns;
       }
-    } else
+    } else {
+      if (mtr) free(mtr);
+      mtr = NULL;
+      if (*result) free(*result);
+      *result = NULL;
       stat = mem_error;
+    }
   }
   return stat;
 }
