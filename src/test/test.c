@@ -272,6 +272,51 @@ START_TEST(remove_matrix_normal_five) {
 }
 END_TEST
 
+START_TEST(remove_matrix_isnot_one) {
+  matrix_t *mtr = NULL;
+  int stat = create_matrix(-9, -9, &mtr);
+  ck_assert_int_eq(stat, ncm_error);
+  ck_assert_ptr_eq(mtr, NULL);
+  remove_matrix(&mtr);
+  ck_assert_ptr_eq(mtr, NULL);
+}
+
+START_TEST(remove_matrix_isnot_two) {
+  matrix_t *mtr = NULL;
+  int stat = create_matrix(0, 0, &mtr);
+  ck_assert_int_eq(stat, ncm_error);
+  ck_assert_ptr_eq(mtr, NULL);
+  remove_matrix(&mtr);
+  ck_assert_ptr_eq(mtr, NULL);
+}
+
+START_TEST(remove_matrix_isnot_three) {
+  matrix_t *mtr = NULL;
+  int stat = create_matrix(422, 0, &mtr);
+  ck_assert_int_eq(stat, ncm_error);
+  ck_assert_ptr_eq(mtr, NULL);
+  remove_matrix(&mtr);
+  ck_assert_ptr_eq(mtr, NULL);
+}
+
+START_TEST(remove_matrix_isnot_four) {
+  matrix_t *mtr = NULL;
+  int stat = create_matrix(0, 3251, &mtr);
+  ck_assert_int_eq(stat, ncm_error);
+  ck_assert_ptr_eq(mtr, NULL);
+  remove_matrix(&mtr);
+  ck_assert_ptr_eq(mtr, NULL);
+}
+
+START_TEST(remove_matrix_isnot_five) {
+  matrix_t *mtr = NULL;
+  int stat = create_matrix(914, 0, &mtr);
+  ck_assert_int_eq(stat, ncm_error);
+  ck_assert_ptr_eq(mtr, NULL);
+  remove_matrix(&mtr);
+  ck_assert_ptr_eq(mtr, NULL);
+}
+
 Suite *MatrixTest(void) {
   Suite *suite = suite_create("MatrixTest");
   TCase *tcase = tcase_create("MatrixTest");
@@ -317,6 +362,11 @@ Suite *MatrixTest(void) {
   tcase_add_test(tcase, remove_matrix_normal_five);
 
   // Удаление несуществующие матрицы
+  tcase_add_test(tcase, remove_matrix_isnot_one);
+  tcase_add_test(tcase, remove_matrix_isnot_two);
+  tcase_add_test(tcase, remove_matrix_isnot_three);
+  tcase_add_test(tcase, remove_matrix_isnot_four);
+  tcase_add_test(tcase, remove_matrix_isnot_five);
 
   suite_add_tcase(suite, tcase);
   return suite;
