@@ -588,6 +588,71 @@ START_TEST(sum_matrix_normal_five) {
 }
 END_TEST
 
+START_TEST(sum_matrix_isnot_correct_one) {
+  matrix_t *mtr_one = NULL, *mtr_two = NULL, *result = NULL;
+  int stat = create_matrix(76, 54, &mtr_one);
+  ck_assert_int_eq(stat, ok);
+  stat = create_matrix(76, 43, &mtr_two);
+  stat = sum_matrix(mtr_one, mtr_two, &result);
+  ck_assert_int_eq(stat, ncm_error);
+  remove_matrix(&mtr_one);
+  remove_matrix(&mtr_two);
+  if (result) remove_matrix(&result);
+}
+END_TEST
+
+START_TEST(sum_matrix_isnot_correct_two) {
+  matrix_t *mtr_one = NULL, *mtr_two = NULL, *result = NULL;
+  int stat = create_matrix(32, 12, &mtr_one);
+  ck_assert_int_eq(stat, ok);
+  stat = create_matrix(1, 1, &mtr_two);
+  stat = sum_matrix(mtr_one, mtr_two, &result);
+  ck_assert_int_eq(stat, ncm_error);
+  remove_matrix(&mtr_one);
+  remove_matrix(&mtr_two);
+  if (result) remove_matrix(&result);
+}
+END_TEST
+
+START_TEST(sum_matrix_isnot_correct_three) {
+  matrix_t *mtr_one = NULL, *mtr_two = NULL, *result = NULL;
+  int stat = create_matrix(521, 521, &mtr_one);
+  ck_assert_int_eq(stat, ok);
+  stat = create_matrix(789, 12, &mtr_two);
+  stat = sum_matrix(mtr_one, mtr_two, &result);
+  ck_assert_int_eq(stat, ncm_error);
+  remove_matrix(&mtr_one);
+  remove_matrix(&mtr_two);
+  if (result) remove_matrix(&result);
+}
+END_TEST
+
+START_TEST(sum_matrix_isnot_correct_four) {
+  matrix_t *mtr_one = NULL, *mtr_two = NULL, *result = NULL;
+  int stat = create_matrix(432, 124, &mtr_one);
+  ck_assert_int_eq(stat, ok);
+  stat = create_matrix(742, 412, &mtr_two);
+  stat = sum_matrix(mtr_one, mtr_two, &result);
+  ck_assert_int_eq(stat, ncm_error);
+  remove_matrix(&mtr_one);
+  remove_matrix(&mtr_two);
+  if (result) remove_matrix(&result);
+}
+END_TEST
+
+START_TEST(sum_matrix_isnot_correct_five) {
+  matrix_t *mtr_one = NULL, *mtr_two = NULL, *result = NULL;
+  int stat = create_matrix(532, 124, &mtr_one);
+  ck_assert_int_eq(stat, ok);
+  stat = create_matrix(1424, 124, &mtr_two);
+  stat = sum_matrix(mtr_one, mtr_two, &result);
+  ck_assert_int_eq(stat, ncm_error);
+  remove_matrix(&mtr_one);
+  remove_matrix(&mtr_two);
+  if (result) remove_matrix(&result);
+}
+END_TEST
+
 Suite *MatrixTest(void) {
   Suite *suite = suite_create("MatrixTest");
   TCase *tcase = tcase_create("MatrixTest");
@@ -664,7 +729,13 @@ Suite *MatrixTest(void) {
   tcase_add_test(tcase, sum_matrix_normal_three);
   tcase_add_test(tcase, sum_matrix_normal_four);
   tcase_add_test(tcase, sum_matrix_normal_five);
+
   // Суммирование матриц разной размерности
+  tcase_add_test(tcase, sum_matrix_isnot_correct_one);
+  tcase_add_test(tcase, sum_matrix_isnot_correct_two);
+  tcase_add_test(tcase, sum_matrix_isnot_correct_three);
+  tcase_add_test(tcase, sum_matrix_isnot_correct_four);
+  tcase_add_test(tcase, sum_matrix_isnot_correct_five);
   // Суммирование несуществующих матриц
   // Разница матриц нормальной размерности
   // Разница матриц разной размерности
