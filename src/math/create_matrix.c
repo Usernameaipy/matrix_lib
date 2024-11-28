@@ -16,6 +16,9 @@ int create_matrix(int rows, int columns, matrix_t **result) {
       for (int i = 0; i < rows && stat != mem_error; i++) {
         mtr[i] = (double *)malloc(sizeof(double) * columns);
         if (!mtr[i]) stat = mem_error;
+        for (int j = 0; j < columns && stat == ok; j++) {
+          mtr[i][j] = 0;
+        }
       }
       if (stat != ok) {
         for (int i = 0; i < rows; i++) {
