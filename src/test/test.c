@@ -711,6 +711,219 @@ START_TEST(sum_matrix_isnot_matrix_five) {
 }
 END_TEST
 
+START_TEST(sub_matrix_normal_one) {
+  matrix_t *mtr_one = NULL, *mtr_two = NULL, *result = NULL;
+  int stat = create_matrix(32, 32, &mtr_one);
+  ck_assert_int_eq(stat, ok);
+  stat = create_matrix(32, 32, &mtr_two);
+  ck_assert_int_eq(stat, ok);
+  mtr_one->matrix[0][0] = 123;
+  mtr_two->matrix[0][0] = 123;
+  stat = sub_matrix(mtr_one, mtr_two, &result);
+  ck_assert_int_eq(stat, ok);
+  ck_assert_int_eq(result->matrix[0][0],
+                   mtr_one->matrix[0][0] - mtr_two->matrix[0][0]);
+  remove_matrix(&mtr_one);
+  remove_matrix(&mtr_two);
+  remove_matrix(&result);
+}
+END_TEST
+
+START_TEST(sub_matrix_normal_two) {
+  matrix_t *mtr_one = NULL, *mtr_two = NULL, *result = NULL;
+  int stat = create_matrix(543, 123, &mtr_one);
+  ck_assert_int_eq(stat, ok);
+  stat = create_matrix(543, 123, &mtr_two);
+  ck_assert_int_eq(stat, ok);
+  mtr_one->matrix[0][0] = 542;
+  mtr_two->matrix[0][0] = 74;
+  stat = sub_matrix(mtr_one, mtr_two, &result);
+  ck_assert_int_eq(stat, ok);
+  ck_assert_int_eq(result->matrix[0][0],
+                   mtr_one->matrix[0][0] - mtr_two->matrix[0][0]);
+  remove_matrix(&mtr_one);
+  remove_matrix(&mtr_two);
+  remove_matrix(&result);
+}
+END_TEST
+
+START_TEST(sub_matrix_normal_three) {
+  matrix_t *mtr_one = NULL, *mtr_two = NULL, *result = NULL;
+  int stat = create_matrix(532, 754, &mtr_one);
+  ck_assert_int_eq(stat, ok);
+  stat = create_matrix(532, 754, &mtr_two);
+  ck_assert_int_eq(stat, ok);
+  mtr_one->matrix[0][0] = 864;
+  mtr_two->matrix[0][0] = 2353;
+  stat = sub_matrix(mtr_one, mtr_two, &result);
+  ck_assert_int_eq(stat, ok);
+  ck_assert_int_eq(result->matrix[0][0],
+                   mtr_one->matrix[0][0] - mtr_two->matrix[0][0]);
+  remove_matrix(&mtr_one);
+  remove_matrix(&mtr_two);
+  remove_matrix(&result);
+}
+END_TEST
+
+START_TEST(sub_matrix_normal_four) {
+  matrix_t *mtr_one = NULL, *mtr_two = NULL, *result = NULL;
+  int stat = create_matrix(1, 1, &mtr_one);
+  ck_assert_int_eq(stat, ok);
+  stat = create_matrix(1, 1, &mtr_two);
+  ck_assert_int_eq(stat, ok);
+  mtr_one->matrix[0][0] = 4232;
+  mtr_two->matrix[0][0] = 15335;
+  stat = sub_matrix(mtr_one, mtr_two, &result);
+  ck_assert_int_eq(stat, ok);
+  ck_assert_int_eq(result->matrix[0][0],
+                   mtr_one->matrix[0][0] - mtr_two->matrix[0][0]);
+  remove_matrix(&mtr_one);
+  remove_matrix(&mtr_two);
+  remove_matrix(&result);
+}
+END_TEST
+
+START_TEST(sub_matrix_normal_five) {
+  matrix_t *mtr_one = NULL, *mtr_two = NULL, *result = NULL;
+  int stat = create_matrix(2, 2, &mtr_one);
+  ck_assert_int_eq(stat, ok);
+  stat = create_matrix(2, 2, &mtr_two);
+  ck_assert_int_eq(stat, ok);
+  mtr_one->matrix[0][0] = 532;
+  mtr_two->matrix[0][0] = 2893;
+  stat = sub_matrix(mtr_one, mtr_two, &result);
+  ck_assert_int_eq(stat, ok);
+  ck_assert_int_eq(result->matrix[0][0],
+                   mtr_one->matrix[0][0] - mtr_two->matrix[0][0]);
+  remove_matrix(&mtr_one);
+  remove_matrix(&mtr_two);
+  remove_matrix(&result);
+}
+END_TEST
+
+START_TEST(sub_matrix_isnot_correct_one) {
+  matrix_t *mtr_one = NULL, *mtr_two = NULL, *result = NULL;
+  int stat = create_matrix(87, 43, &mtr_one);
+  ck_assert_int_eq(stat, ok);
+  stat = create_matrix(87, 23, &mtr_two);
+  stat = sub_matrix(mtr_one, mtr_two, &result);
+  ck_assert_int_eq(stat, ncm_error);
+  remove_matrix(&mtr_one);
+  remove_matrix(&mtr_two);
+  if (result) remove_matrix(&result);
+}
+END_TEST
+
+START_TEST(sub_matrix_isnot_correct_two) {
+  matrix_t *mtr_one = NULL, *mtr_two = NULL, *result = NULL;
+  int stat = create_matrix(23, 43, &mtr_one);
+  ck_assert_int_eq(stat, ok);
+  stat = create_matrix(1, 1, &mtr_two);
+  stat = sub_matrix(mtr_one, mtr_two, &result);
+  ck_assert_int_eq(stat, ncm_error);
+  remove_matrix(&mtr_one);
+  remove_matrix(&mtr_two);
+  if (result) remove_matrix(&result);
+}
+END_TEST
+
+START_TEST(sub_matrix_isnot_correct_three) {
+  matrix_t *mtr_one = NULL, *mtr_two = NULL, *result = NULL;
+  int stat = create_matrix(7, 8, &mtr_one);
+  ck_assert_int_eq(stat, ok);
+  stat = create_matrix(34, 12, &mtr_two);
+  stat = sub_matrix(mtr_one, mtr_two, &result);
+  ck_assert_int_eq(stat, ncm_error);
+  remove_matrix(&mtr_one);
+  remove_matrix(&mtr_two);
+  if (result) remove_matrix(&result);
+}
+END_TEST
+
+START_TEST(sub_matrix_isnot_correct_four) {
+  matrix_t *mtr_one = NULL, *mtr_two = NULL, *result = NULL;
+  int stat = create_matrix(412, 742, &mtr_one);
+  ck_assert_int_eq(stat, ok);
+  stat = create_matrix(742, 412, &mtr_two);
+  stat = sub_matrix(mtr_one, mtr_two, &result);
+  ck_assert_int_eq(stat, ncm_error);
+  remove_matrix(&mtr_one);
+  remove_matrix(&mtr_two);
+  if (result) remove_matrix(&result);
+}
+END_TEST
+
+START_TEST(sub_matrix_isnot_correct_five) {
+  matrix_t *mtr_one = NULL, *mtr_two = NULL, *result = NULL;
+  int stat = create_matrix(1, 124, &mtr_one);
+  ck_assert_int_eq(stat, ok);
+  stat = create_matrix(124, 124, &mtr_two);
+  stat = sub_matrix(mtr_one, mtr_two, &result);
+  ck_assert_int_eq(stat, ncm_error);
+  remove_matrix(&mtr_one);
+  remove_matrix(&mtr_two);
+  if (result) remove_matrix(&result);
+}
+END_TEST
+
+START_TEST(sub_matrix_isnot_matrix_one) {
+  matrix_t *mtr_one = NULL, *mtr_two = NULL, *result = NULL;
+  int stat = sub_matrix(mtr_one, mtr_two, &result);
+  ck_assert_int_eq(stat, ncm_error);
+  if (result) remove_matrix(&result);
+}
+END_TEST
+
+START_TEST(sub_matrix_isnot_matrix_two) {
+  matrix_t *mtr_one = NULL, *mtr_two = NULL, *result = NULL;
+  int stat = create_matrix(9, 21, &mtr_one);
+  ck_assert_int_eq(stat, ok);
+  stat = sub_matrix(mtr_one, mtr_two, &result);
+  ck_assert_int_eq(stat, ncm_error);
+  ck_assert_ptr_eq(result, NULL);
+  remove_matrix(&mtr_one);
+  if (result) remove_matrix(&result);
+}
+END_TEST
+
+START_TEST(sub_matrix_isnot_matrix_three) {
+  matrix_t *mtr_one = NULL, *mtr_two = NULL, *result = NULL;
+  int stat = create_matrix(67, 42, &mtr_two);
+  ck_assert_int_eq(stat, ok);
+  stat = sub_matrix(mtr_one, mtr_two, &result);
+  ck_assert_int_eq(stat, ncm_error);
+  ck_assert_ptr_eq(result, NULL);
+  remove_matrix(&mtr_two);
+  if (result) remove_matrix(&result);
+}
+END_TEST
+
+START_TEST(sub_matrix_isnot_matrix_four) {
+  matrix_t *mtr_one = NULL, *mtr_two = NULL, *result = NULL;
+  int stat = create_matrix(32, 76, &result);
+  ck_assert_int_eq(stat, ok);
+  stat = sub_matrix(mtr_one, mtr_two, &result);
+  ck_assert_int_eq(stat, ncm_error);
+  remove_matrix(&result);
+}
+END_TEST
+
+START_TEST(sub_matrix_isnot_matrix_five) {
+  matrix_t *mtr_one = NULL, *mtr_two = NULL, *result = NULL;
+  int stat = create_matrix(89, 89, &mtr_one);
+  ck_assert_int_eq(stat, ok);
+  stat = create_matrix(89, 89, &mtr_two);
+  ck_assert_int_eq(stat, ok);
+  stat = create_matrix(89, 89, &result);
+  ck_assert_int_eq(stat, ok);
+  stat = sub_matrix(mtr_one, mtr_two, &result);
+  ck_assert_int_eq(stat, ncm_error);
+  remove_matrix(&mtr_one);
+  remove_matrix(&mtr_two);
+  remove_matrix(&result);
+}
+END_TEST
+
 Suite *MatrixTest(void) {
   Suite *suite = suite_create("MatrixTest");
   TCase *tcase = tcase_create("MatrixTest");
@@ -801,9 +1014,27 @@ Suite *MatrixTest(void) {
   tcase_add_test(tcase, sum_matrix_isnot_matrix_three);
   tcase_add_test(tcase, sum_matrix_isnot_matrix_four);
   tcase_add_test(tcase, sum_matrix_isnot_matrix_five);
+
   // Разница матриц нормальной размерности
+  tcase_add_test(tcase, sub_matrix_normal_one);
+  tcase_add_test(tcase, sub_matrix_normal_two);
+  tcase_add_test(tcase, sub_matrix_normal_three);
+  tcase_add_test(tcase, sub_matrix_normal_four);
+  tcase_add_test(tcase, sub_matrix_normal_five);
+
   // Разница матриц разной размерности
+  tcase_add_test(tcase, sub_matrix_isnot_correct_one);
+  tcase_add_test(tcase, sub_matrix_isnot_correct_two);
+  tcase_add_test(tcase, sub_matrix_isnot_correct_three);
+  tcase_add_test(tcase, sub_matrix_isnot_correct_four);
+  tcase_add_test(tcase, sub_matrix_isnot_correct_five);
+
   // Разница несуществующих матриц
+  tcase_add_test(tcase, sub_matrix_isnot_matrix_one);
+  tcase_add_test(tcase, sub_matrix_isnot_matrix_two);
+  tcase_add_test(tcase, sub_matrix_isnot_matrix_three);
+  tcase_add_test(tcase, sub_matrix_isnot_matrix_four);
+  tcase_add_test(tcase, sub_matrix_isnot_matrix_five);
 
   suite_add_tcase(suite, tcase);
   return suite;
