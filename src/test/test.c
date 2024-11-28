@@ -92,6 +92,51 @@ START_TEST(create_matrix_isnot_null_three) {
 }
 END_TEST
 
+START_TEST(create_matrix_isnull_size_one) {
+  matrix_t *mtr = NULL;
+  int stat = create_matrix(0, 897, &mtr);
+  ck_assert_int_eq(stat, ncm_error);
+  ck_assert_ptr_eq(mtr, NULL);
+  if (mtr) remove_matrix(&mtr);
+}
+END_TEST
+
+START_TEST(create_matrix_isnull_size_two) {
+  matrix_t *mtr = NULL;
+  int stat = create_matrix(0, 1, &mtr);
+  ck_assert_int_eq(stat, ncm_error);
+  ck_assert_ptr_eq(mtr, NULL);
+  if (mtr) remove_matrix(&mtr);
+}
+END_TEST
+
+START_TEST(create_matrix_isnull_size_three) {
+  matrix_t *mtr = NULL;
+  int stat = create_matrix(562, 0, &mtr);
+  ck_assert_int_eq(stat, ncm_error);
+  ck_assert_ptr_eq(mtr, NULL);
+  if (mtr) remove_matrix(&mtr);
+}
+END_TEST
+
+START_TEST(create_matrix_isnull_size_four) {
+  matrix_t *mtr = NULL;
+  int stat = create_matrix(1, 0, &mtr);
+  ck_assert_int_eq(stat, ncm_error);
+  ck_assert_ptr_eq(mtr, NULL);
+  if (mtr) remove_matrix(&mtr);
+}
+END_TEST
+
+START_TEST(create_matrix_isnull_size_five) {
+  matrix_t *mtr = NULL;
+  int stat = create_matrix(0, 0, &mtr);
+  ck_assert_int_eq(stat, ncm_error);
+  ck_assert_ptr_eq(mtr, NULL);
+  if (mtr) remove_matrix(&mtr);
+}
+END_TEST
+
 Suite *MatrixTest(void) {
   Suite *suite = suite_create("MatrixTest");
   TCase *tcase = tcase_create("MatrixTest");
@@ -107,6 +152,15 @@ Suite *MatrixTest(void) {
   tcase_add_test(tcase, create_matrix_isnot_null_one);
   tcase_add_test(tcase, create_matrix_isnot_null_two);
   tcase_add_test(tcase, create_matrix_isnot_null_three);
+
+  // Нулевые значения размерности
+  tcase_add_test(tcase, create_matrix_isnull_size_one);
+  tcase_add_test(tcase, create_matrix_isnull_size_two);
+  tcase_add_test(tcase, create_matrix_isnull_size_three);
+  tcase_add_test(tcase, create_matrix_isnull_size_four);
+  tcase_add_test(tcase, create_matrix_isnull_size_five);
+  // Отрицательные значения размерости
+  // Большие значения размерности
 
   suite_add_tcase(suite, tcase);
   return suite;

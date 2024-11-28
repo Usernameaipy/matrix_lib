@@ -5,8 +5,8 @@ int create_matrix(int rows, int columns, matrix_t **result) {
   if ((rows > INT_MAX || rows <= 0) || (columns > INT_MAX || columns <= 0))
     stat = ncm_error;
   if (*result) stat = ncm_error;
-  *result = (matrix_t *)malloc(sizeof(matrix_t));
-  if (!(*result)) stat = mem_error;
+  if (stat == ok) *result = (matrix_t *)malloc(sizeof(matrix_t));
+  if (!(*result) && stat == ok) stat = mem_error;
   if (stat == ok) {
     double **mtr = (double **)malloc(sizeof(double *) * rows);
     if (mtr) {
