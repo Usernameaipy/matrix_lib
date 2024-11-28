@@ -1,12 +1,12 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -I -std=c11 -pedantic
-TESTFLAGS = -lcheck -lm
-BUILDDIR = ../../build/
+TESTFLAGS = -lcheck -lm -lpthread -lrt -lsubunit -g
+BUILDDIR = ../build/
 
 all : test
 
 test : test/test.o math/calc_complements.o math/create_matrix.o math/determinant.o math/eq_matrix.o math/inverse_matrix.o math/mult_matrix.o math/mult_number.o math/remove_matrix.o math/sub_matrix.o math/sum_matrix.o math/transpose.o
-	$(CC) $(CFLAGS) test/test.o math/*.o -o $(BUILDDIR)test $(TESTFLAGS)
+	$(CC) $(CFLAGS) test/test.o math/*.o $(TESTFLAGS) -o $(BUILDDIR)test
 
 test/test.o : test/test.c test/test.h
 	$(CC) $(CFLAGS) -c test/test.c -o test/test.o
@@ -47,7 +47,7 @@ math/transpose.o : math/transpose.c math/matrix.h
 clean_o : 
 	rm -rf math/*.o
 	rm -rf test/*.o
-	rm -tf enought_func/*.o
+	rm -rf enought_func/*.o
 
 clean : clean_o
 	rm -rf $(BUILDDIR)*

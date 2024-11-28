@@ -2,7 +2,7 @@
 
 int eq_matrix(matrix_t *mtr_one, matrix_t *mtr_two, int epsilon) {
   int stat = success;
-  double comp = pow(10, -1*epsilon);
+  double comp = pow(10, -1 * epsilon);
   if (mtr_one->columns != mtr_two->columns || mtr_one->rows != mtr_two->rows)
     stat = failure;
   if (stat == success) {
