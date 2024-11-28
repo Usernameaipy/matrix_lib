@@ -336,10 +336,10 @@ START_TEST(eq_matrix_normal_two) {
   ck_assert_int_eq(stat, ok);
   stat = create_matrix(431, 8941, &mtr_two);
   ck_assert_int_eq(stat, ok);
-  stat = eq_matrix(mtr_one, mtr_two, 6);
-  ck_assert_int_eq(stat, success);
   mtr_one->matrix[0][0] = 89;
   mtr_two->matrix[0][0] = 89;
+  stat = eq_matrix(mtr_one, mtr_two, 6);
+  ck_assert_int_eq(stat, success);
   remove_matrix(&mtr_one);
   remove_matrix(&mtr_two);
 }
@@ -351,10 +351,10 @@ START_TEST(eq_matrix_normal_three) {
   ck_assert_int_eq(stat, ok);
   stat = create_matrix(1, 1, &mtr_two);
   ck_assert_int_eq(stat, ok);
-  stat = eq_matrix(mtr_one, mtr_two, 6);
-  ck_assert_int_eq(stat, success);
   mtr_one->matrix[0][0] = 1782;
   mtr_two->matrix[0][0] = 1782;
+  stat = eq_matrix(mtr_one, mtr_two, 6);
+  ck_assert_int_eq(stat, success);
   remove_matrix(&mtr_one);
   remove_matrix(&mtr_two);
 }
@@ -366,10 +366,10 @@ START_TEST(eq_matrix_normal_four) {
   ck_assert_int_eq(stat, ok);
   stat = create_matrix(78, 42, &mtr_two);
   ck_assert_int_eq(stat, ok);
-  stat = eq_matrix(mtr_one, mtr_two, 6);
-  ck_assert_int_eq(stat, success);
   mtr_one->matrix[0][0] = 13;
   mtr_two->matrix[0][0] = 13;
+  stat = eq_matrix(mtr_one, mtr_two, 6);
+  ck_assert_int_eq(stat, success);
   remove_matrix(&mtr_one);
   remove_matrix(&mtr_two);
 }
@@ -381,10 +381,79 @@ START_TEST(eq_matrix_normal_five) {
   ck_assert_int_eq(stat, ok);
   stat = create_matrix(41, 89, &mtr_two);
   ck_assert_int_eq(stat, ok);
-  stat = eq_matrix(mtr_one, mtr_two, 6);
-  ck_assert_int_eq(stat, success);
   mtr_one->matrix[0][0] = 889;
   mtr_two->matrix[0][0] = 889;
+  stat = eq_matrix(mtr_one, mtr_two, 6);
+  ck_assert_int_eq(stat, success);
+  remove_matrix(&mtr_one);
+  remove_matrix(&mtr_two);
+}
+END_TEST
+
+START_TEST(eq_matrix_isnot_one) {
+  matrix_t *mtr_one = NULL, *mtr_two = NULL;
+  int stat = create_matrix(41, 89, &mtr_one);
+  ck_assert_int_eq(stat, ok);
+  stat = create_matrix(54, 12, &mtr_two);
+  ck_assert_int_eq(stat, ok);
+  stat = eq_matrix(mtr_one, mtr_two, 3);
+  ck_assert_int_eq(stat, failure);
+  remove_matrix(&mtr_one);
+  remove_matrix(&mtr_two);
+}
+END_TEST
+
+START_TEST(eq_matrix_isnot_two) {
+  matrix_t *mtr_one = NULL, *mtr_two = NULL;
+  int stat = create_matrix(64, 32, &mtr_one);
+  ck_assert_int_eq(stat, ok);
+  stat = create_matrix(432, 13, &mtr_two);
+  ck_assert_int_eq(stat, ok);
+  stat = eq_matrix(mtr_one, mtr_two, 3);
+  ck_assert_int_eq(stat, failure);
+  remove_matrix(&mtr_one);
+  remove_matrix(&mtr_two);
+}
+END_TEST
+
+START_TEST(eq_matrix_isnot_three) {
+  matrix_t *mtr_one = NULL, *mtr_two = NULL;
+  int stat = create_matrix(123, 321, &mtr_one);
+  ck_assert_int_eq(stat, ok);
+  stat = create_matrix(64, 22, &mtr_two);
+  ck_assert_int_eq(stat, ok);
+  stat = eq_matrix(mtr_one, mtr_two, 3);
+  ck_assert_int_eq(stat, failure);
+  remove_matrix(&mtr_one);
+  remove_matrix(&mtr_two);
+}
+END_TEST
+
+START_TEST(eq_matrix_isnot_four) {
+  matrix_t *mtr_one = NULL, *mtr_two = NULL;
+  int stat = create_matrix(45, 45, &mtr_one);
+  ck_assert_int_eq(stat, ok);
+  stat = create_matrix(45, 45, &mtr_two);
+  ck_assert_int_eq(stat, ok);
+  mtr_one->matrix[0][0] = 123;
+  mtr_two->matrix[0][0] = 345;
+  stat = eq_matrix(mtr_one, mtr_two, 3);
+  ck_assert_int_eq(stat, failure);
+  remove_matrix(&mtr_one);
+  remove_matrix(&mtr_two);
+}
+END_TEST
+
+START_TEST(eq_matrix_isnot_five) {
+  matrix_t *mtr_one = NULL, *mtr_two = NULL;
+  int stat = create_matrix(34, 34, &mtr_one);
+  ck_assert_int_eq(stat, ok);
+  stat = create_matrix(34, 34, &mtr_two);
+  ck_assert_int_eq(stat, ok);
+  mtr_one->matrix[0][0] = 7513;
+  mtr_two->matrix[0][0] = 1247;
+  stat = eq_matrix(mtr_one, mtr_two, 3);
+  ck_assert_int_eq(stat, failure);
   remove_matrix(&mtr_one);
   remove_matrix(&mtr_two);
 }
@@ -447,7 +516,13 @@ Suite *MatrixTest(void) {
   tcase_add_test(tcase, eq_matrix_normal_three);
   tcase_add_test(tcase, eq_matrix_normal_four);
   tcase_add_test(tcase, eq_matrix_normal_five);
+
   // Сравнение матриц нормальной размерности заведомо неравных
+  tcase_add_test(tcase, eq_matrix_isnot_one);
+  tcase_add_test(tcase, eq_matrix_isnot_two);
+  tcase_add_test(tcase, eq_matrix_isnot_three);
+  tcase_add_test(tcase, eq_matrix_isnot_four);
+  tcase_add_test(tcase, eq_matrix_isnot_five);
   // Сравнение несуществующих матриц
 
   suite_add_tcase(suite, tcase);
