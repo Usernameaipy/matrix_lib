@@ -227,6 +227,51 @@ START_TEST(create_matrix_islarge_size_five) {
 }
 END_TEST
 
+START_TEST(remove_matrix_normal_one) {
+  matrix_t *mtr = NULL;
+  create_matrix(45, 23, &mtr);
+  ck_assert_ptr_ne(mtr, NULL);
+  remove_matrix(&mtr);
+  ck_assert_ptr_eq(mtr, NULL);
+}
+END_TEST
+
+START_TEST(remove_matrix_normal_two) {
+  matrix_t *mtr = NULL;
+  create_matrix(8274, 872, &mtr);
+  ck_assert_ptr_ne(mtr, NULL);
+  remove_matrix(&mtr);
+  ck_assert_ptr_eq(mtr, NULL);
+}
+END_TEST
+
+START_TEST(remove_matrix_normal_three) {
+  matrix_t *mtr = NULL;
+  create_matrix(123, 5312, &mtr);
+  ck_assert_ptr_ne(mtr, NULL);
+  remove_matrix(&mtr);
+  ck_assert_ptr_eq(mtr, NULL);
+}
+END_TEST
+
+START_TEST(remove_matrix_normal_four) {
+  matrix_t *mtr = NULL;
+  create_matrix(532, 1244, &mtr);
+  ck_assert_ptr_ne(mtr, NULL);
+  remove_matrix(&mtr);
+  ck_assert_ptr_eq(mtr, NULL);
+}
+END_TEST
+
+START_TEST(remove_matrix_normal_five) {
+  matrix_t *mtr = NULL;
+  create_matrix(522, 5221, &mtr);
+  ck_assert_ptr_ne(mtr, NULL);
+  remove_matrix(&mtr);
+  ck_assert_ptr_eq(mtr, NULL);
+}
+END_TEST
+
 Suite *MatrixTest(void) {
   Suite *suite = suite_create("MatrixTest");
   TCase *tcase = tcase_create("MatrixTest");
@@ -263,6 +308,15 @@ Suite *MatrixTest(void) {
   tcase_add_test(tcase, create_matrix_islarge_size_three);
   tcase_add_test(tcase, create_matrix_islarge_size_four);
   tcase_add_test(tcase, create_matrix_islarge_size_five);
+
+  // Удаление матрицы нормальной размерности
+  tcase_add_test(tcase, remove_matrix_normal_one);
+  tcase_add_test(tcase, remove_matrix_normal_two);
+  tcase_add_test(tcase, remove_matrix_normal_three);
+  tcase_add_test(tcase, remove_matrix_normal_four);
+  tcase_add_test(tcase, remove_matrix_normal_five);
+
+  // Удаление несуществующие матрицы
 
   suite_add_tcase(suite, tcase);
   return suite;

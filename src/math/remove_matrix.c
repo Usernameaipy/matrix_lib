@@ -12,5 +12,6 @@ void remove_matrix(matrix_t** mtr) {
     stru_mtr->matrix = NULL;
     free(stru_mtr);
     stru_mtr = NULL;
+    *mtr = NULL;
   }
 }
