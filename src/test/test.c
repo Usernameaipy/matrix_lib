@@ -50,15 +50,63 @@ START_TEST(create_matrix_normal_five) {
 }
 END_TEST
 
+START_TEST(create_matrix_isnot_null_one) {
+  matrix_t *mtr_one = NULL;
+  int stat = create_matrix(67, 23, &mtr_one);
+  ck_assert_int_eq(stat, ok);
+  ck_assert_ptr_ne(mtr_one, NULL);
+  matrix_t *mtr_two = mtr_one;
+  stat = create_matrix(78, 32, &mtr_two);
+  ck_assert_int_eq(stat, ncm_error);
+  ck_assert_ptr_ne(mtr_two, NULL);
+  ck_assert_ptr_ne(mtr_two->matrix, NULL);
+  remove_matrix(&mtr_one);
+}
+END_TEST
+
+START_TEST(create_matrix_isnot_null_two) {
+  matrix_t *mtr_one = NULL;
+  int stat = create_matrix(978, 324, &mtr_one);
+  ck_assert_int_eq(stat, ok);
+  ck_assert_ptr_ne(mtr_one, NULL);
+  matrix_t *mtr_two = mtr_one;
+  stat = create_matrix(978, 324, &mtr_two);
+  ck_assert_int_eq(stat, ncm_error);
+  ck_assert_ptr_ne(mtr_two, NULL);
+  ck_assert_ptr_ne(mtr_two->matrix, NULL);
+  remove_matrix(&mtr_one);
+}
+END_TEST
+
+START_TEST(create_matrix_isnot_null_three) {
+  matrix_t *mtr_one = NULL;
+  int stat = create_matrix(1, 1, &mtr_one);
+  ck_assert_int_eq(stat, ok);
+  ck_assert_ptr_ne(mtr_one, NULL);
+  matrix_t *mtr_two = mtr_one;
+  stat = create_matrix(1, 1, &mtr_two);
+  ck_assert_int_eq(stat, ncm_error);
+  ck_assert_ptr_ne(mtr_two, NULL);
+  ck_assert_ptr_ne(mtr_two->matrix, NULL);
+  remove_matrix(&mtr_one);
+}
+END_TEST
+
 Suite *MatrixTest(void) {
   Suite *suite = suite_create("MatrixTest");
   TCase *tcase = tcase_create("MatrixTest");
 
+  // Нормальное значение размерности
   tcase_add_test(tcase, create_matrix_normal_one);
   tcase_add_test(tcase, create_matrix_normal_two);
   tcase_add_test(tcase, create_matrix_normal_three);
   tcase_add_test(tcase, create_matrix_normal_four);
   tcase_add_test(tcase, create_matrix_normal_five);
+
+  // Ненулевая матрица
+  tcase_add_test(tcase, create_matrix_isnot_null_one);
+  tcase_add_test(tcase, create_matrix_isnot_null_two);
+  tcase_add_test(tcase, create_matrix_isnot_null_three);
 
   suite_add_tcase(suite, tcase);
   return suite;
