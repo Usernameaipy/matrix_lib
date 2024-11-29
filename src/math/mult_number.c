@@ -3,9 +3,10 @@
 int mult_number(matrix_t *mtr, double number, matrix_t **result) {
   int stat = ok;
   if ((*result)) stat = ncm_error;
-  if (!mtr || !mtr->matrix || mtr->columns <= 0 || mtr->rows <= 0)
+  if (!mtr) stat = ncm_error;
+  if (stat == ok && (!mtr->matrix || mtr->columns <= 0 || mtr->rows <= 0))
     stat = ncm_error;
-  stat = create_matrix(mtr->rows, mtr->columns, result);
+  if (stat == ok) stat = create_matrix(mtr->rows, mtr->columns, result);
   if (stat == ok) {
     matrix_t *res = (*result);
     for (int i = 0; i < mtr->rows && stat == ok; i++)
