@@ -1266,6 +1266,76 @@ START_TEST(mult_matrix_isnot_matrix_three) {
 }
 END_TEST
 
+START_TEST(transpose_normal_one) {
+  matrix_t *mtr = NULL, *result = NULL;
+  int stat = create_matrix(6, 3, &mtr);
+  ck_assert_int_eq(stat, ok);
+  mtr->matrix[0][0] = 9;
+  mtr->matrix[5][2] = 43;
+  stat = transpose(mtr, &result);
+  ck_assert_int_eq(result->matrix[0][0], 9);
+  ck_assert_int_eq(result->matrix[2][5], 43);
+  remove_matrix(&mtr);
+  remove_matrix(&result);
+}
+END_TEST
+
+START_TEST(transpose_normal_two) {
+  matrix_t *mtr = NULL, *result = NULL;
+  int stat = create_matrix(94, 43, &mtr);
+  ck_assert_int_eq(stat, ok);
+  mtr->matrix[0][0] = 12;
+  mtr->matrix[93][42] = 353;
+  stat = transpose(mtr, &result);
+  ck_assert_int_eq(result->matrix[0][0], 12);
+  ck_assert_int_eq(result->matrix[42][93], 353);
+  remove_matrix(&mtr);
+  remove_matrix(&result);
+}
+END_TEST
+
+START_TEST(transpose_normal_three) {
+  matrix_t *mtr = NULL, *result = NULL;
+  int stat = create_matrix(34, 34, &mtr);
+  ck_assert_int_eq(stat, ok);
+  mtr->matrix[0][0] = 12;
+  mtr->matrix[33][33] = 632;
+  stat = transpose(mtr, &result);
+  ck_assert_int_eq(result->matrix[0][0], 12);
+  ck_assert_int_eq(result->matrix[33][33], 632);
+  remove_matrix(&mtr);
+  remove_matrix(&result);
+}
+END_TEST
+
+START_TEST(transpose_normal_four) {
+  matrix_t *mtr = NULL, *result = NULL;
+  int stat = create_matrix(76, 12, &mtr);
+  ck_assert_int_eq(stat, ok);
+  mtr->matrix[0][0] = -7432;
+  mtr->matrix[75][11] = -424;
+  stat = transpose(mtr, &result);
+  ck_assert_int_eq(result->matrix[0][0], -7432);
+  ck_assert_int_eq(result->matrix[11][75], -424);
+  remove_matrix(&mtr);
+  remove_matrix(&result);
+}
+END_TEST
+
+START_TEST(transpose_normal_five) {
+  matrix_t *mtr = NULL, *result = NULL;
+  int stat = create_matrix(89, 12, &mtr);
+  ck_assert_int_eq(stat, ok);
+  mtr->matrix[0][0] = -324;
+  mtr->matrix[88][11] = -43;
+  stat = transpose(mtr, &result);
+  ck_assert_int_eq(result->matrix[0][0], -324);
+  ck_assert_int_eq(result->matrix[11][88], -43);
+  remove_matrix(&mtr);
+  remove_matrix(&result);
+}
+END_TEST
+
 Suite *MatrixTest(void) {
   Suite *suite = suite_create("MatrixTest");
   TCase *tcase = tcase_create("MatrixTest");
@@ -1411,6 +1481,15 @@ Suite *MatrixTest(void) {
   tcase_add_test(tcase, mult_matrix_isnot_matrix_one);
   tcase_add_test(tcase, mult_matrix_isnot_matrix_two);
   tcase_add_test(tcase, mult_matrix_isnot_matrix_three);
+
+  // Транспонирование матрицы заведомо корректной
+  tcase_add_test(tcase, transpose_normal_one);
+  tcase_add_test(tcase, transpose_normal_two);
+  tcase_add_test(tcase, transpose_normal_three);
+  tcase_add_test(tcase, transpose_normal_four);
+  tcase_add_test(tcase, transpose_normal_five);
+  // Транспонирование нулевой матрицы
+  // Транспонирование не корректной матрицы
 
   suite_add_tcase(suite, tcase);
   return suite;
