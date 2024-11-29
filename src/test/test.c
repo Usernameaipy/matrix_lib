@@ -1161,6 +1161,81 @@ START_TEST(mult_matrix_normal_five) {
   if (result) remove_matrix(&result);
 }
 
+START_TEST(mult_matrix_isnot_correct_size_one) {
+  matrix_t *mtr_one = NULL, *mtr_two = NULL, *result = NULL;
+  int stat = create_matrix(432, 521, &mtr_one);
+  ck_assert_int_eq(stat, ok);
+  stat = create_matrix(51, 73, &mtr_two);
+  ck_assert_int_eq(stat, ok);
+  stat = mult_matrix(mtr_one, mtr_two, &result);
+  ck_assert_int_eq(stat, ncm_error);
+  ck_assert_ptr_eq(result, NULL);
+  remove_matrix(&mtr_one);
+  remove_matrix(&mtr_two);
+  if (result) remove_matrix(&result);
+}
+END_TEST
+
+START_TEST(mult_matrix_isnot_correct_size_two) {
+  matrix_t *mtr_one = NULL, *mtr_two = NULL, *result = NULL;
+  int stat = create_matrix(1, 1, &mtr_one);
+  ck_assert_int_eq(stat, ok);
+  stat = create_matrix(41, 124, &mtr_two);
+  ck_assert_int_eq(stat, ok);
+  stat = mult_matrix(mtr_one, mtr_two, &result);
+  ck_assert_int_eq(stat, ncm_error);
+  ck_assert_ptr_eq(result, NULL);
+  remove_matrix(&mtr_one);
+  remove_matrix(&mtr_two);
+  if (result) remove_matrix(&result);
+}
+END_TEST
+
+START_TEST(mult_matrix_isnot_correct_size_three) {
+  matrix_t *mtr_one = NULL, *mtr_two = NULL, *result = NULL;
+  int stat = create_matrix(532, 123, &mtr_one);
+  ck_assert_int_eq(stat, ok);
+  stat = create_matrix(12, 53, &mtr_two);
+  ck_assert_int_eq(stat, ok);
+  stat = mult_matrix(mtr_one, mtr_two, &result);
+  ck_assert_int_eq(stat, ncm_error);
+  ck_assert_ptr_eq(result, NULL);
+  remove_matrix(&mtr_one);
+  remove_matrix(&mtr_two);
+  if (result) remove_matrix(&result);
+}
+END_TEST
+
+START_TEST(mult_matrix_isnot_correct_size_four) {
+  matrix_t *mtr_one = NULL, *mtr_two = NULL, *result = NULL;
+  int stat = create_matrix(432, 585, &mtr_one);
+  ck_assert_int_eq(stat, ok);
+  stat = create_matrix(568, 583, &mtr_two);
+  ck_assert_int_eq(stat, ok);
+  stat = mult_matrix(mtr_one, mtr_two, &result);
+  ck_assert_int_eq(stat, ncm_error);
+  ck_assert_ptr_eq(result, NULL);
+  remove_matrix(&mtr_one);
+  remove_matrix(&mtr_two);
+  if (result) remove_matrix(&result);
+}
+END_TEST
+
+START_TEST(mult_matrix_isnot_correct_size_five) {
+  matrix_t *mtr_one = NULL, *mtr_two = NULL, *result = NULL;
+  int stat = create_matrix(23, 52, &mtr_one);
+  ck_assert_int_eq(stat, ok);
+  stat = create_matrix(23, 432, &mtr_two);
+  ck_assert_int_eq(stat, ok);
+  stat = mult_matrix(mtr_one, mtr_two, &result);
+  ck_assert_int_eq(stat, ncm_error);
+  ck_assert_ptr_eq(result, NULL);
+  remove_matrix(&mtr_one);
+  remove_matrix(&mtr_two);
+  if (result) remove_matrix(&result);
+}
+END_TEST
+
 Suite *MatrixTest(void) {
   Suite *suite = suite_create("MatrixTest");
   TCase *tcase = tcase_create("MatrixTest");
@@ -1294,7 +1369,13 @@ Suite *MatrixTest(void) {
   tcase_add_test(tcase, mult_matrix_normal_three);
   tcase_add_test(tcase, mult_matrix_normal_four);
   tcase_add_test(tcase, mult_matrix_normal_five);
+
   // Умножение матриц некорректной размерности
+  tcase_add_test(tcase, mult_matrix_isnot_correct_size_one);
+  tcase_add_test(tcase, mult_matrix_isnot_correct_size_two);
+  tcase_add_test(tcase, mult_matrix_isnot_correct_size_three);
+  tcase_add_test(tcase, mult_matrix_isnot_correct_size_four);
+  tcase_add_test(tcase, mult_matrix_isnot_correct_size_five);
   // Умножение несуществующих матриц
 
   suite_add_tcase(suite, tcase);
