@@ -1236,6 +1236,36 @@ START_TEST(mult_matrix_isnot_correct_size_five) {
 }
 END_TEST
 
+START_TEST(mult_matrix_isnot_matrix_one) {
+  matrix_t *mtr_one = NULL, *mtr_two = NULL, *result = NULL;
+  int stat = mult_matrix(mtr_one, mtr_two, &result);
+  ck_assert_int_eq(stat, ncm_error);
+  if (result) remove_matrix(&result);
+}
+END_TEST
+
+START_TEST(mult_matrix_isnot_matrix_two) {
+  matrix_t *mtr_one = NULL, *mtr_two = NULL, *result = NULL;
+  int stat = create_matrix(43, 522, &mtr_one);
+  ck_assert_int_eq(stat, ok);
+  stat = mult_matrix(mtr_one, mtr_two, &result);
+  ck_assert_int_eq(stat, ncm_error);
+  remove_matrix(&mtr_one);
+  if (result) remove_matrix(&result);
+}
+END_TEST
+
+START_TEST(mult_matrix_isnot_matrix_three) {
+  matrix_t *mtr_one = NULL, *mtr_two = NULL, *result = NULL;
+  int stat = create_matrix(43, 522, &mtr_two);
+  ck_assert_int_eq(stat, ok);
+  stat = mult_matrix(mtr_one, mtr_two, &result);
+  ck_assert_int_eq(stat, ncm_error);
+  remove_matrix(&mtr_two);
+  if (result) remove_matrix(&result);
+}
+END_TEST
+
 Suite *MatrixTest(void) {
   Suite *suite = suite_create("MatrixTest");
   TCase *tcase = tcase_create("MatrixTest");
@@ -1376,7 +1406,11 @@ Suite *MatrixTest(void) {
   tcase_add_test(tcase, mult_matrix_isnot_correct_size_three);
   tcase_add_test(tcase, mult_matrix_isnot_correct_size_four);
   tcase_add_test(tcase, mult_matrix_isnot_correct_size_five);
+
   // Умножение несуществующих матриц
+  tcase_add_test(tcase, mult_matrix_isnot_matrix_one);
+  tcase_add_test(tcase, mult_matrix_isnot_matrix_two);
+  tcase_add_test(tcase, mult_matrix_isnot_matrix_three);
 
   suite_add_tcase(suite, tcase);
   return suite;
