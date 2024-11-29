@@ -924,6 +924,126 @@ START_TEST(sub_matrix_isnot_matrix_five) {
 }
 END_TEST
 
+START_TEST(mult_number_is_normal_one) {
+  matrix_t *mtr = NULL, *result = NULL;
+  double num = 78;
+  int stat = create_matrix(89, 32, &mtr);
+  ck_assert_int_eq(stat, ok);
+  mtr->matrix[0][0] = 90;
+  stat = mult_number(mtr, num, &result);
+  ck_assert_int_eq(stat, ok);
+  ck_assert_ptr_ne(result, NULL);
+  ck_assert_int_eq(mtr->matrix[0][0] * num, result->matrix[0][0]);
+  remove_matrix(&mtr);
+  remove_matrix(&result);
+}
+END_TEST
+
+START_TEST(mult_number_is_normal_two) {
+  matrix_t *mtr = NULL, *result = NULL;
+  double num = 6417;
+  int stat = create_matrix(1, 1, &mtr);
+  ck_assert_int_eq(stat, ok);
+  mtr->matrix[0][0] = 53;
+  stat = mult_number(mtr, num, &result);
+  ck_assert_int_eq(stat, ok);
+  ck_assert_ptr_ne(result, NULL);
+  ck_assert_int_eq(mtr->matrix[0][0] * num, result->matrix[0][0]);
+  remove_matrix(&mtr);
+  remove_matrix(&result);
+}
+END_TEST
+
+START_TEST(mult_number_is_normal_three) {
+  matrix_t *mtr = NULL, *result = NULL;
+  double num = 0;
+  int stat = create_matrix(32, 76, &mtr);
+  ck_assert_int_eq(stat, ok);
+  mtr->matrix[0][0] = 12;
+  stat = mult_number(mtr, num, &result);
+  ck_assert_int_eq(stat, ok);
+  ck_assert_ptr_ne(result, NULL);
+  ck_assert_int_eq(mtr->matrix[0][0] * num, result->matrix[0][0]);
+  remove_matrix(&mtr);
+  remove_matrix(&result);
+}
+END_TEST
+
+START_TEST(mult_number_is_normal_four) {
+  matrix_t *mtr = NULL, *result = NULL;
+  double num = -92;
+  int stat = create_matrix(12, 12, &mtr);
+  ck_assert_int_eq(stat, ok);
+  mtr->matrix[1][1] = 34;
+  stat = mult_number(mtr, num, &result);
+  ck_assert_int_eq(stat, ok);
+  ck_assert_ptr_ne(result, NULL);
+  ck_assert_int_eq(mtr->matrix[1][1] * num, result->matrix[1][1]);
+  remove_matrix(&mtr);
+  remove_matrix(&result);
+}
+END_TEST
+
+START_TEST(mult_number_is_normal_five) {
+  matrix_t *mtr = NULL, *result = NULL;
+  double num = -82532;
+  int stat = create_matrix(1, 1, &mtr);
+  ck_assert_int_eq(stat, ok);
+  mtr->matrix[0][0] = -23;
+  stat = mult_number(mtr, num, &result);
+  ck_assert_int_eq(stat, ok);
+  ck_assert_ptr_ne(result, NULL);
+  ck_assert_int_eq(mtr->matrix[0][0] * num, result->matrix[0][0]);
+  remove_matrix(&mtr);
+  remove_matrix(&result);
+}
+END_TEST
+
+START_TEST(mult_number_is_normal_six) {
+  matrix_t *mtr = NULL, *result = NULL;
+  double num = 4315353;
+  int stat = create_matrix(1234, 463, &mtr);
+  ck_assert_int_eq(stat, ok);
+  mtr->matrix[0][0] = 0;
+  stat = mult_number(mtr, num, &result);
+  ck_assert_int_eq(stat, ok);
+  ck_assert_ptr_ne(result, NULL);
+  ck_assert_int_eq(mtr->matrix[0][0] * num, result->matrix[0][0]);
+  remove_matrix(&mtr);
+  remove_matrix(&result);
+}
+END_TEST
+
+START_TEST(mult_number_is_normal_seven) {
+  matrix_t *mtr = NULL, *result = NULL;
+  double num = -1;
+  int stat = create_matrix(10, 10, &mtr);
+  ck_assert_int_eq(stat, ok);
+  mtr->matrix[0][0] = 90;
+  stat = mult_number(mtr, num, &result);
+  ck_assert_int_eq(stat, ok);
+  ck_assert_ptr_ne(result, NULL);
+  ck_assert_int_eq(mtr->matrix[0][0] * num, result->matrix[0][0]);
+  remove_matrix(&mtr);
+  remove_matrix(&result);
+}
+END_TEST
+
+START_TEST(mult_number_is_normal_eight) {
+  matrix_t *mtr = NULL, *result = NULL;
+  double num = 0;
+  int stat = create_matrix(1, 1, &mtr);
+  ck_assert_int_eq(stat, ok);
+  mtr->matrix[0][0] = 0;
+  stat = mult_number(mtr, num, &result);
+  ck_assert_int_eq(stat, ok);
+  ck_assert_ptr_ne(result, NULL);
+  ck_assert_int_eq(mtr->matrix[0][0] * num, result->matrix[0][0]);
+  remove_matrix(&mtr);
+  remove_matrix(&result);
+}
+END_TEST
+
 Suite *MatrixTest(void) {
   Suite *suite = suite_create("MatrixTest");
   TCase *tcase = tcase_create("MatrixTest");
@@ -1035,6 +1155,17 @@ Suite *MatrixTest(void) {
   tcase_add_test(tcase, sub_matrix_isnot_matrix_three);
   tcase_add_test(tcase, sub_matrix_isnot_matrix_four);
   tcase_add_test(tcase, sub_matrix_isnot_matrix_five);
+
+  // Умножение на число заведомо верной матрицы
+  tcase_add_test(tcase, mult_number_is_normal_one);
+  tcase_add_test(tcase, mult_number_is_normal_two);
+  tcase_add_test(tcase, mult_number_is_normal_three);
+  tcase_add_test(tcase, mult_number_is_normal_four);
+  tcase_add_test(tcase, mult_number_is_normal_five);
+  tcase_add_test(tcase, mult_number_is_normal_six);
+  tcase_add_test(tcase, mult_number_is_normal_seven);
+  tcase_add_test(tcase, mult_number_is_normal_eight);
+  // Умножение на число несуществующей матрицы
 
   suite_add_tcase(suite, tcase);
   return suite;
