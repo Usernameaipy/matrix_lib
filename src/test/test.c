@@ -1600,6 +1600,31 @@ START_TEST(calc_complements_isnot_correct_five) {
 }
 END_TEST
 
+START_TEST(calc_complements_isnot_matrix_one) {
+  matrix_t *mtr = NULL, *result = NULL;
+  int stat = calc_complements(mtr, &result);
+  ck_assert_int_eq(stat, ncm_error);
+  if (result) remove_matrix(&result);
+}
+END_TEST
+
+START_TEST(calc_complements_isnot_matrix_two) {
+  matrix_t *mtr = NULL, *result = NULL;
+  int stat = create_matrix(3, 3, &result);
+  ck_assert_int_eq(stat, ok);
+  stat = calc_complements(mtr, &result);
+  if (result) remove_matrix(&result);
+}
+END_TEST
+
+START_TEST(calc_complements_isnot_matrix_three) {
+  matrix_t *mtr = NULL, *result = NULL;
+  int stat = calc_complements(mtr, &result);
+  ck_assert_int_eq(stat, ncm_error);
+  if (result) remove_matrix(&result);
+}
+END_TEST
+
 Suite *MatrixTest(void) {
   Suite *suite = suite_create("MatrixTest");
   TCase *tcase = tcase_create("MatrixTest");
@@ -1771,7 +1796,11 @@ Suite *MatrixTest(void) {
   tcase_add_test(tcase, calc_complements_isnot_correct_three);
   tcase_add_test(tcase, calc_complements_isnot_correct_four);
   tcase_add_test(tcase, calc_complements_isnot_correct_five);
+
   // Получение матрицы алгебраических дополнениц из нуль-матрицы
+  tcase_add_test(tcase, calc_complements_isnot_matrix_one);
+  tcase_add_test(tcase, calc_complements_isnot_matrix_two);
+  tcase_add_test(tcase, calc_complements_isnot_matrix_three);
   // Получение матрицы алгебраических дополнений из матрицы некорректного
   // размера
 
