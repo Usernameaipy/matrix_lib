@@ -2,9 +2,12 @@
 
 int calc_complements(matrix_t *mtr, matrix_t **result) {
   int stat = ok;
+  double check = 0;
   if (!result || (*result)) stat = ncm_error;
   if (!mtr || !mtr->matrix) stat = ncm_error;
-  if (mtr->columns != mtr->rows) stat = ncm_error;
+  if (stat == ok && (mtr->columns != mtr->rows)) stat = ncm_error;
+  if (stat == ok && (determinant(mtr, &check) == ok && check == 0))
+    stat = ncm_error;
   if (stat == ok) {
     stat = create_matrix(mtr->rows, mtr->columns, result);
     if (stat == ok) {

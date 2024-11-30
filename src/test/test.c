@@ -1513,6 +1513,93 @@ START_TEST(calc_complements_normal_five) {
 }
 END_TEST
 
+START_TEST(calc_complements_isnot_correct_one) {
+  matrix_t *mtr = NULL, *result = NULL;
+  double values[9] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+  int stat = create_matrix(3, 3, &mtr);
+  ck_assert_int_eq(stat, ok);
+  for (int i = 0, k = 0; i < mtr->rows; i++) {
+    for (int j = 0; j < mtr->columns; j++, k++) {
+      mtr->matrix[i][j] = values[k];
+    }
+  }
+  stat = calc_complements(mtr, &result);
+  ck_assert_int_eq(stat, ncm_error);
+  if (mtr) remove_matrix(&mtr);
+  if (result) remove_matrix(&result);
+}
+END_TEST
+
+START_TEST(calc_complements_isnot_correct_two) {
+  matrix_t *mtr = NULL, *result = NULL;
+  double values[9] = {1, 1, 1, 2, 2, 2, 3, 3, 3};
+  int stat = create_matrix(3, 3, &mtr);
+  ck_assert_int_eq(stat, ok);
+  for (int i = 0, k = 0; i < mtr->rows; i++) {
+    for (int j = 0; j < mtr->columns; j++, k++) {
+      mtr->matrix[i][j] = values[k];
+    }
+  }
+  stat = calc_complements(mtr, &result);
+  ck_assert_int_eq(stat, ncm_error);
+  if (mtr) remove_matrix(&mtr);
+  if (result) remove_matrix(&result);
+}
+END_TEST
+
+START_TEST(calc_complements_isnot_correct_three) {
+  matrix_t *mtr = NULL, *result = NULL;
+  double values[9] = {2, 4, 6, 1, 2, 3, 3, 6, 9};
+  int stat = create_matrix(3, 3, &mtr);
+  ck_assert_int_eq(stat, ok);
+  for (int i = 0, k = 0; i < mtr->rows; i++) {
+    for (int j = 0; j < mtr->columns; j++, k++) {
+      mtr->matrix[i][j] = values[k];
+    }
+  }
+  stat = calc_complements(mtr, &result);
+  ck_assert_int_eq(stat, ncm_error);
+  if (mtr) remove_matrix(&mtr);
+  if (result) remove_matrix(&result);
+}
+END_TEST
+
+START_TEST(calc_complements_isnot_correct_four) {
+  matrix_t *mtr = NULL, *result = NULL;
+  double values[25] = {1,  2,  3, 4, 5,  2,  4,  6, 8,  10, 3,  6, 9,
+                       12, 15, 4, 8, 12, 16, 20, 5, 10, 15, 20, 25};
+  int stat = create_matrix(5, 5, &mtr);
+  ck_assert_int_eq(stat, ok);
+  for (int i = 0, k = 0; i < mtr->rows; i++) {
+    for (int j = 0; j < mtr->columns; j++, k++) {
+      mtr->matrix[i][j] = values[k];
+    }
+  }
+  stat = calc_complements(mtr, &result);
+  ck_assert_int_eq(stat, ncm_error);
+  if (mtr) remove_matrix(&mtr);
+  if (result) remove_matrix(&result);
+}
+END_TEST
+
+START_TEST(calc_complements_isnot_correct_five) {
+  matrix_t *mtr = NULL, *result = NULL;
+  double values[25] = {1, 2,  3,  4,  5,  0,  0,  0,  0,  0,  6,  7, 8,
+                       9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
+  int stat = create_matrix(5, 5, &mtr);
+  ck_assert_int_eq(stat, ok);
+  for (int i = 0, k = 0; i < mtr->rows; i++) {
+    for (int j = 0; j < mtr->columns; j++, k++) {
+      mtr->matrix[i][j] = values[k];
+    }
+  }
+  stat = calc_complements(mtr, &result);
+  ck_assert_int_eq(stat, ncm_error);
+  if (mtr) remove_matrix(&mtr);
+  if (result) remove_matrix(&result);
+}
+END_TEST
+
 Suite *MatrixTest(void) {
   Suite *suite = suite_create("MatrixTest");
   TCase *tcase = tcase_create("MatrixTest");
@@ -1677,7 +1764,13 @@ Suite *MatrixTest(void) {
   tcase_add_test(tcase, calc_complements_normal_three);
   tcase_add_test(tcase, calc_complements_normal_four);
   tcase_add_test(tcase, calc_complements_normal_five);
+
   // Получение матрицы алгебраических дополнений заведома некорректной
+  tcase_add_test(tcase, calc_complements_isnot_correct_one);
+  tcase_add_test(tcase, calc_complements_isnot_correct_two);
+  tcase_add_test(tcase, calc_complements_isnot_correct_three);
+  tcase_add_test(tcase, calc_complements_isnot_correct_four);
+  tcase_add_test(tcase, calc_complements_isnot_correct_five);
   // Получение матрицы алгебраических дополнениц из нуль-матрицы
   // Получение матрицы алгебраических дополнений из матрицы некорректного
   // размера
