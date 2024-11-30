@@ -1367,6 +1367,152 @@ START_TEST(transpose_isnot_matrix_three) {
 }
 END_TEST
 
+START_TEST(calc_complements_normal_one) {
+  matrix_t *mtr = NULL, *result_cp = NULL, *result = NULL;
+  double values[9] = {1, 2, 3, 0, 4, 2, 5, 2, 1};
+  double values_ans[9] = {0, 10, -20, 4, -14, 8, -8, -2, 4};
+  int stat = create_matrix(3, 3, &mtr);
+  stat = create_matrix(3, 3, &result_cp);
+  ck_assert_int_eq(stat, ok);
+  for (int i = 0, k = 0; i < mtr->rows; i++) {
+    for (int j = 0; j < mtr->columns; j++, k++) {
+      mtr->matrix[i][j] = values[k];
+    }
+  }
+  for (int i = 0, k = 0; i < result_cp->rows; i++) {
+    for (int j = 0; j < result_cp->columns; j++, k++) {
+      result_cp->matrix[i][j] = values_ans[k];
+    }
+  }
+  stat = calc_complements(mtr, &result);
+  ck_assert_int_eq(stat, ok);
+  stat = eq_matrix(result_cp, result, 3);
+  ck_assert_int_eq(stat, success);
+  if (mtr) remove_matrix(&mtr);
+  if (result) remove_matrix(&result);
+  if (result_cp) remove_matrix(&result_cp);
+}
+END_TEST
+
+START_TEST(calc_complements_normal_two) {
+  matrix_t *mtr = NULL, *result_cp = NULL, *result = NULL;
+  double values[9] = {5, -1, 1, 2, 3, 4, 1, 0, 3};
+  double values_ans[9] = {9, -2, -3, 3, 14, -1, -7, -18, 17};
+  int stat = create_matrix(3, 3, &mtr);
+  stat = create_matrix(3, 3, &result_cp);
+  ck_assert_int_eq(stat, ok);
+  for (int i = 0, k = 0; i < mtr->rows; i++) {
+    for (int j = 0; j < mtr->columns; j++, k++) {
+      mtr->matrix[i][j] = values[k];
+    }
+  }
+  for (int i = 0, k = 0; i < result_cp->rows; i++) {
+    for (int j = 0; j < result_cp->columns; j++, k++) {
+      result_cp->matrix[i][j] = values_ans[k];
+    }
+  }
+  stat = calc_complements(mtr, &result);
+  ck_assert_int_eq(stat, ok);
+  stat = eq_matrix(result_cp, result, 3);
+  ck_assert_int_eq(stat, success);
+  if (mtr) remove_matrix(&mtr);
+  if (result) remove_matrix(&result);
+  if (result_cp) remove_matrix(&result_cp);
+}
+END_TEST
+
+START_TEST(calc_complements_normal_three) {
+  matrix_t *mtr = NULL, *result_cp = NULL, *result = NULL;
+  double values[9] = {429, 472, 12, 123, 64, 53, 988, 76, 23};
+  double values_ans[9] = {-2556,  49535, -53884, -9944, -1989,
+                          433732, 24248, -21261, -30600};
+  int stat = create_matrix(3, 3, &mtr);
+  stat = create_matrix(3, 3, &result_cp);
+  ck_assert_int_eq(stat, ok);
+  for (int i = 0, k = 0; i < mtr->rows; i++) {
+    for (int j = 0; j < mtr->columns; j++, k++) {
+      mtr->matrix[i][j] = values[k];
+    }
+  }
+  for (int i = 0, k = 0; i < result_cp->rows; i++) {
+    for (int j = 0; j < result_cp->columns; j++, k++) {
+      result_cp->matrix[i][j] = values_ans[k];
+    }
+  }
+  stat = calc_complements(mtr, &result);
+  ck_assert_int_eq(stat, ok);
+  stat = eq_matrix(result_cp, result, 3);
+  ck_assert_int_eq(stat, success);
+  if (mtr) remove_matrix(&mtr);
+  if (result) remove_matrix(&result);
+  if (result_cp) remove_matrix(&result_cp);
+}
+END_TEST
+
+START_TEST(calc_complements_normal_four) {
+  matrix_t *mtr = NULL, *result_cp = NULL, *result = NULL;
+  double values[25] = {4,  19, 9,  4,  5,  15, 16, 1, 2, 7, 8, 4, 9,
+                       25, 11, 24, 12, 17, 13, 6,  2, 5, 4, 7, 9};
+  double values_ans[25] = {-22957, 30157, 13233,  8319,  -24004, 19710,  14662,
+                           -43594, 6122,  2088,   -3146, 10530,  -24514, 39770,
+                           -25188, 14661, -15121, 30179, -14439, 2960,   -8505,
+                           -30947, 36397, -48365, 97580};
+  int stat = create_matrix(5, 5, &mtr);
+  stat = create_matrix(5, 5, &result_cp);
+  ck_assert_int_eq(stat, ok);
+  for (int i = 0, k = 0; i < mtr->rows; i++) {
+    for (int j = 0; j < mtr->columns; j++, k++) {
+      mtr->matrix[i][j] = values[k];
+    }
+  }
+  for (int i = 0, k = 0; i < result_cp->rows; i++) {
+    for (int j = 0; j < result_cp->columns; j++, k++) {
+      result_cp->matrix[i][j] = values_ans[k];
+    }
+  }
+  stat = calc_complements(mtr, &result);
+  ck_assert_int_eq(stat, ok);
+  stat = eq_matrix(result_cp, result, 3);
+  ck_assert_int_eq(stat, success);
+  if (mtr) remove_matrix(&mtr);
+  if (result) remove_matrix(&result);
+  if (result_cp) remove_matrix(&result_cp);
+}
+END_TEST
+
+START_TEST(calc_complements_normal_five) {
+  matrix_t *mtr = NULL, *result_cp = NULL, *result = NULL;
+  double values[25] = {72, 423, 532, 12, 54, 453, 64, 978, 56, 98, 45, 34, 53,
+                       75, 96,  97,  52, 23, 51,  17, 71,  84, 94, 35, 34};
+  double values_ans[25] = {
+      193772280,   557785,     -94825430,  -423832340,  292442250,
+      601115,      34470780,   -29744190,  -32702595,   29480000,
+      298556180,   102233710,  -121361205, -665558540,  144628875,
+      465248750,   119612250,  -249537750, -1831388500, 1308089875,
+      -1385095130, -448708860, 703774155,  3562324265,  -2363426750};
+  int stat = create_matrix(5, 5, &mtr);
+  stat = create_matrix(5, 5, &result_cp);
+  ck_assert_int_eq(stat, ok);
+  for (int i = 0, k = 0; i < mtr->rows; i++) {
+    for (int j = 0; j < mtr->columns; j++, k++) {
+      mtr->matrix[i][j] = values[k];
+    }
+  }
+  for (int i = 0, k = 0; i < result_cp->rows; i++) {
+    for (int j = 0; j < result_cp->columns; j++, k++) {
+      result_cp->matrix[i][j] = values_ans[k];
+    }
+  }
+  stat = calc_complements(mtr, &result);
+  ck_assert_int_eq(stat, ok);
+  stat = eq_matrix(result_cp, result, 3);
+  ck_assert_int_eq(stat, success);
+  if (mtr) remove_matrix(&mtr);
+  if (result) remove_matrix(&result);
+  if (result_cp) remove_matrix(&result_cp);
+}
+END_TEST
+
 Suite *MatrixTest(void) {
   Suite *suite = suite_create("MatrixTest");
   TCase *tcase = tcase_create("MatrixTest");
@@ -1524,7 +1670,17 @@ Suite *MatrixTest(void) {
   tcase_add_test(tcase, transpose_isnot_matrix_one);
   tcase_add_test(tcase, transpose_isnot_matrix_two);
   tcase_add_test(tcase, transpose_isnot_matrix_three);
-  // Транспонирование не корректной матрицы
+
+  // Получение матрицы алгебраических дополнений заведомо корректной
+  tcase_add_test(tcase, calc_complements_normal_one);
+  tcase_add_test(tcase, calc_complements_normal_two);
+  tcase_add_test(tcase, calc_complements_normal_three);
+  tcase_add_test(tcase, calc_complements_normal_four);
+  tcase_add_test(tcase, calc_complements_normal_five);
+  // Получение матрицы алгебраических дополнений заведома некорректной
+  // Получение матрицы алгебраических дополнениц из нуль-матрицы
+  // Получение матрицы алгебраических дополнений из матрицы некорректного
+  // размера
 
   suite_add_tcase(suite, tcase);
   return suite;
