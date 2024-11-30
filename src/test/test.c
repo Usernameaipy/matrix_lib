@@ -1336,6 +1336,37 @@ START_TEST(transpose_normal_five) {
 }
 END_TEST
 
+START_TEST(transpose_isnot_matrix_one) {
+  matrix_t *mtr = NULL, *result = NULL;
+  int stat = transpose(mtr, &result);
+  ck_assert_int_eq(stat, ncm_error);
+  if (result) remove_matrix(&result);
+}
+END_TEST
+
+START_TEST(transpose_isnot_matrix_two) {
+  matrix_t *mtr = NULL, *result = NULL;
+  int stat = create_matrix(43, 54, &result);
+  ck_assert_int_eq(stat, ok);
+  stat = transpose(mtr, &result);
+  ck_assert_int_eq(stat, ncm_error);
+  remove_matrix(&result);
+}
+END_TEST
+
+START_TEST(transpose_isnot_matrix_three) {
+  matrix_t *mtr = NULL, *result = NULL;
+  int stat = create_matrix(43, 43, &mtr);
+  ck_assert_int_eq(stat, ok);
+  stat = create_matrix(43, 43, &result);
+  ck_assert_int_eq(stat, ok);
+  stat = transpose(mtr, &result);
+  ck_assert_int_eq(stat, ncm_error);
+  remove_matrix(&mtr);
+  remove_matrix(&result);
+}
+END_TEST
+
 Suite *MatrixTest(void) {
   Suite *suite = suite_create("MatrixTest");
   TCase *tcase = tcase_create("MatrixTest");
@@ -1488,7 +1519,11 @@ Suite *MatrixTest(void) {
   tcase_add_test(tcase, transpose_normal_three);
   tcase_add_test(tcase, transpose_normal_four);
   tcase_add_test(tcase, transpose_normal_five);
+
   // Транспонирование нулевой матрицы
+  tcase_add_test(tcase, transpose_isnot_matrix_one);
+  tcase_add_test(tcase, transpose_isnot_matrix_two);
+  tcase_add_test(tcase, transpose_isnot_matrix_three);
   // Транспонирование не корректной матрицы
 
   suite_add_tcase(suite, tcase);
