@@ -1836,6 +1836,153 @@ START_TEST(determinant_isnot_correct_matrix_five) {
   if (mtr) remove_matrix(&mtr);
 }
 
+START_TEST(inverse_matrix_normal_one) {
+  matrix_t *mtr = NULL, *result = NULL, *result_cp = NULL;
+  double values[9] = {2, 5, 7, 6, 3, 4, 5, -2, -3};
+  double values_res[9] = {1, -1, 1, -38, 41, -34, 27, -29, 24};
+  int stat = create_matrix(3, 3, &mtr);
+  stat = create_matrix(3, 3, &result_cp);
+  ck_assert_int_eq(stat, ok);
+  for (int i = 0, k = 0; i < mtr->rows; i++) {
+    for (int j = 0; j < mtr->columns; j++, k++) {
+      mtr->matrix[i][j] = values[k];
+    }
+  }
+  for (int i = 0, k = 0; i < result_cp->rows; i++) {
+    for (int j = 0; j < result_cp->columns; j++, k++) {
+      result_cp->matrix[i][j] = values_res[k];
+    }
+  }
+  stat = inverse_matrix(mtr, &result);
+  ck_assert_int_eq(stat, ok);
+  stat = eq_matrix(result, result_cp, 4);
+  ck_assert_int_eq(stat, success);
+  if (mtr) remove_matrix(&mtr);
+  if (result) remove_matrix(&result);
+  if (result_cp) remove_matrix(&result_cp);
+}
+END_TEST
+
+START_TEST(inverse_matrix_normal_two) {
+  matrix_t *mtr = NULL, *result = NULL, *result_cp = NULL;
+  double values[9] = {4, 2, 1, 3, 5, 2, 2, 1, 3};
+  double values_res[9] = {0.3714,  -0.1428, -0.0285, -0.1428, 0.2857,
+                          -0.1428, -0.2000, -0.0000, 0.4000};
+  int stat = create_matrix(3, 3, &mtr);
+  stat = create_matrix(3, 3, &result_cp);
+  ck_assert_int_eq(stat, ok);
+  for (int i = 0, k = 0; i < mtr->rows; i++) {
+    for (int j = 0; j < mtr->columns; j++, k++) {
+      mtr->matrix[i][j] = values[k];
+    }
+  }
+  for (int i = 0, k = 0; i < result_cp->rows; i++) {
+    for (int j = 0; j < result_cp->columns; j++, k++) {
+      result_cp->matrix[i][j] = values_res[k];
+    }
+  }
+  stat = inverse_matrix(mtr, &result);
+  ck_assert_int_eq(stat, ok);
+  stat = eq_matrix(result, result_cp, 2);
+  ck_assert_int_eq(stat, success);
+  if (mtr) remove_matrix(&mtr);
+  if (result) remove_matrix(&result);
+  if (result_cp) remove_matrix(&result_cp);
+}
+END_TEST
+
+START_TEST(inverse_matrix_normal_three) {
+  matrix_t *mtr = NULL, *result = NULL, *result_cp = NULL;
+  double values[9] = {2, 1, 1, 1, 3, 2, 1, 1, 2};
+  double values_res[9] = {0.6666,  -0.1666, -0.1666, -0.0000, 0.5000,
+                          -0.5000, -0.3333, -0.1666, 0.8333};
+  int stat = create_matrix(3, 3, &mtr);
+  stat = create_matrix(3, 3, &result_cp);
+  ck_assert_int_eq(stat, ok);
+  for (int i = 0, k = 0; i < mtr->rows; i++) {
+    for (int j = 0; j < mtr->columns; j++, k++) {
+      mtr->matrix[i][j] = values[k];
+    }
+  }
+  for (int i = 0, k = 0; i < result_cp->rows; i++) {
+    for (int j = 0; j < result_cp->columns; j++, k++) {
+      result_cp->matrix[i][j] = values_res[k];
+    }
+  }
+  stat = inverse_matrix(mtr, &result);
+  ck_assert_int_eq(stat, ok);
+  stat = eq_matrix(result, result_cp, 4);
+  ck_assert_int_eq(stat, success);
+  if (mtr) remove_matrix(&mtr);
+  if (result) remove_matrix(&result);
+  if (result_cp) remove_matrix(&result_cp);
+}
+END_TEST
+
+START_TEST(inverse_matrix_normal_four) {
+  matrix_t *mtr = NULL, *result = NULL, *result_cp = NULL;
+  double values[25] = {65, 34, 11, 54, 1,  14, 11, 12, 2,  41, 9,  32, 5,
+                       93, 52, 19, 14, 59, 19, 18, 14, 12, 13, 18, 16};
+  double values_res[25] = {0.0616,  0.0948,  0.0289,  0.0557,  -0.4036,
+                           -0.1424, -0.2547, -0.1141, -0.1854, 1.2413,
+                           -0.0019, -0.0027, 0.0001,  0.0218,  -0.0179,
+                           0.0341,  0.0456,  0.0366,  0.0448,  -0.2887,
+                           0.0160,  0.0589,  0.0189,  0.0221,  -0.1758};
+  int stat = create_matrix(5, 5, &mtr);
+  stat = create_matrix(5, 5, &result_cp);
+  ck_assert_int_eq(stat, ok);
+  for (int i = 0, k = 0; i < mtr->rows; i++) {
+    for (int j = 0; j < mtr->columns; j++, k++) {
+      mtr->matrix[i][j] = values[k];
+    }
+  }
+  for (int i = 0, k = 0; i < result_cp->rows; i++) {
+    for (int j = 0; j < result_cp->columns; j++, k++) {
+      result_cp->matrix[i][j] = values_res[k];
+    }
+  }
+  stat = inverse_matrix(mtr, &result);
+  ck_assert_int_eq(stat, ok);
+  stat = eq_matrix(result, result_cp, 4);
+  ck_assert_int_eq(stat, success);
+  if (mtr) remove_matrix(&mtr);
+  if (result) remove_matrix(&result);
+  if (result_cp) remove_matrix(&result_cp);
+}
+END_TEST
+
+START_TEST(inverse_matrix_normal_five) {
+  matrix_t *mtr = NULL, *result = NULL, *result_cp = NULL;
+  double values[25] = {1, 6, 2,  9,  13, 17, 32, 23, 7,  14, 8,  9, 16,
+                       3, 2, 16, 17, 28, 4,  15, 11, 10, 12, 21, 2};
+  double values_res[25] = {-0.1961, 0.0204,  -0.4183, 0.1933,  0.1002,
+                           0.0290,  0.0551,  0.0849,  -0.0844, -0.0269,
+                           0.0685,  -0.0370, 0.2231,  -0.0492, -0.0395,
+                           0.0463,  -0.0147, 0.0590,  -0.0384, 0.0315,
+                           0.0359,  -0.0111, -0.0822, 0.0583,  -0.0110};
+  int stat = create_matrix(5, 5, &mtr);
+  stat = create_matrix(5, 5, &result_cp);
+  ck_assert_int_eq(stat, ok);
+  for (int i = 0, k = 0; i < mtr->rows; i++) {
+    for (int j = 0; j < mtr->columns; j++, k++) {
+      mtr->matrix[i][j] = values[k];
+    }
+  }
+  for (int i = 0, k = 0; i < result_cp->rows; i++) {
+    for (int j = 0; j < result_cp->columns; j++, k++) {
+      result_cp->matrix[i][j] = values_res[k];
+    }
+  }
+  stat = inverse_matrix(mtr, &result);
+  ck_assert_int_eq(stat, ok);
+  stat = eq_matrix(result, result_cp, 3);
+  ck_assert_int_eq(stat, success);
+  if (mtr) remove_matrix(&mtr);
+  if (result) remove_matrix(&result);
+  if (result_cp) remove_matrix(&result_cp);
+}
+END_TEST
+
 Suite *MatrixTest(void) {
   Suite *suite = suite_create("MatrixTest");
   TCase *tcase = tcase_create("MatrixTest");
@@ -2034,6 +2181,15 @@ Suite *MatrixTest(void) {
   tcase_add_test(tcase, determinant_isnot_correct_matrix_three);
   tcase_add_test(tcase, determinant_isnot_correct_matrix_four);
   tcase_add_test(tcase, determinant_isnot_correct_matrix_five);
+
+  // Обратная матрица заведомо корректного размера
+  tcase_add_test(tcase, inverse_matrix_normal_one);
+  tcase_add_test(tcase, inverse_matrix_normal_two);
+  tcase_add_test(tcase, inverse_matrix_normal_three);
+  tcase_add_test(tcase, inverse_matrix_normal_four);
+  tcase_add_test(tcase, inverse_matrix_normal_five);
+  // Обратная матрица для нуль-указателя
+  // Обратная матрица заведома некорректного размера
 
   suite_add_tcase(suite, tcase);
   return suite;
