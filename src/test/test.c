@@ -1983,6 +1983,34 @@ START_TEST(inverse_matrix_normal_five) {
 }
 END_TEST
 
+START_TEST(inverse_matrix_isnot_matrix_one) {
+  matrix_t *mtr = NULL, *result = NULL;
+  int stat = inverse_matrix(mtr, &result);
+  ck_assert_int_eq(stat, ncm_error);
+  if (result) remove_matrix(&result);
+}
+END_TEST
+
+START_TEST(inverse_matrix_isnot_matrix_two) {
+  matrix_t *mtr = NULL, *result = NULL;
+  int stat = create_matrix(3, 3, &result);
+  ck_assert_int_eq(stat, ok);
+  stat = inverse_matrix(mtr, &result);
+  if (result) remove_matrix(&result);
+}
+END_TEST
+
+START_TEST(inverse_matrix_isnot_matrix_three) {
+  matrix_t *mtr = NULL, *result = NULL;
+  int stat = create_matrix(3, 3, &mtr);
+  stat = create_matrix(3, 3, &result);
+  ck_assert_int_eq(stat, ok);
+  stat = inverse_matrix(mtr, &result);
+  if (mtr) remove_matrix(&mtr);
+  if (result) remove_matrix(&result);
+}
+END_TEST
+
 Suite *MatrixTest(void) {
   Suite *suite = suite_create("MatrixTest");
   TCase *tcase = tcase_create("MatrixTest");
@@ -2188,7 +2216,11 @@ Suite *MatrixTest(void) {
   tcase_add_test(tcase, inverse_matrix_normal_three);
   tcase_add_test(tcase, inverse_matrix_normal_four);
   tcase_add_test(tcase, inverse_matrix_normal_five);
+
   // Обратная матрица для нуль-указателя
+  tcase_add_test(tcase, inverse_matrix_isnot_matrix_one);
+  tcase_add_test(tcase, inverse_matrix_isnot_matrix_two);
+  tcase_add_test(tcase, inverse_matrix_isnot_matrix_three);
   // Обратная матрица заведома некорректного размера
 
   suite_add_tcase(suite, tcase);
