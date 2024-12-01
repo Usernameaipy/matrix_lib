@@ -2069,116 +2069,82 @@ END_TEST
 Suite *MatrixTest(void) {
   Suite *suite = suite_create("MatrixTest");
   TCase *tcase = tcase_create("MatrixTest");
-
-  // Нормальное значение размерности
   tcase_add_test(tcase, create_matrix_normal_one);
   tcase_add_test(tcase, create_matrix_normal_two);
   tcase_add_test(tcase, create_matrix_normal_three);
   tcase_add_test(tcase, create_matrix_normal_four);
   tcase_add_test(tcase, create_matrix_normal_five);
-
-  // Ненулевая матрица
   tcase_add_test(tcase, create_matrix_isnot_null_one);
   tcase_add_test(tcase, create_matrix_isnot_null_two);
   tcase_add_test(tcase, create_matrix_isnot_null_three);
-
-  // Нулевые значения размерности
   tcase_add_test(tcase, create_matrix_isnull_size_one);
   tcase_add_test(tcase, create_matrix_isnull_size_two);
   tcase_add_test(tcase, create_matrix_isnull_size_three);
   tcase_add_test(tcase, create_matrix_isnull_size_four);
   tcase_add_test(tcase, create_matrix_isnull_size_five);
-
-  // Отрицательные значения размерости
   tcase_add_test(tcase, create_matrix_isnegative_size_one);
   tcase_add_test(tcase, create_matrix_isnegative_size_two);
   tcase_add_test(tcase, create_matrix_isnegative_size_three);
   tcase_add_test(tcase, create_matrix_isnegative_size_four);
   tcase_add_test(tcase, create_matrix_isnegative_size_five);
-
-  // Большие значения размерности
   tcase_add_test(tcase, create_matrix_islarge_size_one);
   tcase_add_test(tcase, create_matrix_islarge_size_two);
   tcase_add_test(tcase, create_matrix_islarge_size_three);
   tcase_add_test(tcase, create_matrix_islarge_size_four);
   tcase_add_test(tcase, create_matrix_islarge_size_five);
-
-  // Удаление матрицы нормальной размерности
   tcase_add_test(tcase, remove_matrix_normal_one);
   tcase_add_test(tcase, remove_matrix_normal_two);
   tcase_add_test(tcase, remove_matrix_normal_three);
   tcase_add_test(tcase, remove_matrix_normal_four);
   tcase_add_test(tcase, remove_matrix_normal_five);
-
-  // Удаление несуществующие матрицы
   tcase_add_test(tcase, remove_matrix_isnot_one);
   tcase_add_test(tcase, remove_matrix_isnot_two);
   tcase_add_test(tcase, remove_matrix_isnot_three);
   tcase_add_test(tcase, remove_matrix_isnot_four);
   tcase_add_test(tcase, remove_matrix_isnot_five);
-
-  // Сравнение матриц нормальной размерности заведомо равных
   tcase_add_test(tcase, eq_matrix_normal_one);
   tcase_add_test(tcase, eq_matrix_normal_two);
   tcase_add_test(tcase, eq_matrix_normal_three);
   tcase_add_test(tcase, eq_matrix_normal_four);
   tcase_add_test(tcase, eq_matrix_normal_five);
-
-  // Сравнение матриц нормальной размерности заведомо неравных
   tcase_add_test(tcase, eq_matrix_isnot_one);
   tcase_add_test(tcase, eq_matrix_isnot_two);
   tcase_add_test(tcase, eq_matrix_isnot_three);
   tcase_add_test(tcase, eq_matrix_isnot_four);
   tcase_add_test(tcase, eq_matrix_isnot_five);
-
-  // Сравнение несуществующих матриц
   tcase_add_test(tcase, eq_matrix_isnot_matrix_one);
   tcase_add_test(tcase, eq_matrix_isnot_matrix_two);
   tcase_add_test(tcase, eq_matrix_isnot_matrix_three);
-
-  // Суммирование матриц нормальной размерности
   tcase_add_test(tcase, sum_matrix_normal_one);
   tcase_add_test(tcase, sum_matrix_normal_two);
   tcase_add_test(tcase, sum_matrix_normal_three);
   tcase_add_test(tcase, sum_matrix_normal_four);
   tcase_add_test(tcase, sum_matrix_normal_five);
-
-  // Суммирование матриц разной размерности
   tcase_add_test(tcase, sum_matrix_isnot_correct_one);
   tcase_add_test(tcase, sum_matrix_isnot_correct_two);
   tcase_add_test(tcase, sum_matrix_isnot_correct_three);
   tcase_add_test(tcase, sum_matrix_isnot_correct_four);
   tcase_add_test(tcase, sum_matrix_isnot_correct_five);
-
-  // Суммирование несуществующих матриц
   tcase_add_test(tcase, sum_matrix_isnot_matrix_one);
   tcase_add_test(tcase, sum_matrix_isnot_matrix_two);
   tcase_add_test(tcase, sum_matrix_isnot_matrix_three);
   tcase_add_test(tcase, sum_matrix_isnot_matrix_four);
   tcase_add_test(tcase, sum_matrix_isnot_matrix_five);
-
-  // Разница матриц нормальной размерности
   tcase_add_test(tcase, sub_matrix_normal_one);
   tcase_add_test(tcase, sub_matrix_normal_two);
   tcase_add_test(tcase, sub_matrix_normal_three);
   tcase_add_test(tcase, sub_matrix_normal_four);
   tcase_add_test(tcase, sub_matrix_normal_five);
-
-  // Разница матриц разной размерности
   tcase_add_test(tcase, sub_matrix_isnot_correct_one);
   tcase_add_test(tcase, sub_matrix_isnot_correct_two);
   tcase_add_test(tcase, sub_matrix_isnot_correct_three);
   tcase_add_test(tcase, sub_matrix_isnot_correct_four);
   tcase_add_test(tcase, sub_matrix_isnot_correct_five);
-
-  // Разница несуществующих матриц
   tcase_add_test(tcase, sub_matrix_isnot_matrix_one);
   tcase_add_test(tcase, sub_matrix_isnot_matrix_two);
   tcase_add_test(tcase, sub_matrix_isnot_matrix_three);
   tcase_add_test(tcase, sub_matrix_isnot_matrix_four);
   tcase_add_test(tcase, sub_matrix_isnot_matrix_five);
-
-  // Умножение на число заведомо верной матрицы
   tcase_add_test(tcase, mult_number_is_normal_one);
   tcase_add_test(tcase, mult_number_is_normal_two);
   tcase_add_test(tcase, mult_number_is_normal_three);
@@ -2187,103 +2153,70 @@ Suite *MatrixTest(void) {
   tcase_add_test(tcase, mult_number_is_normal_six);
   tcase_add_test(tcase, mult_number_is_normal_seven);
   tcase_add_test(tcase, mult_number_is_normal_eight);
-
-  // Умножение на число несуществующей матрицы
   tcase_add_test(tcase, mult_number_isnot_matrix_one);
   tcase_add_test(tcase, mult_number_isnot_matrix_two);
   tcase_add_test(tcase, mult_number_isnot_matrix_three);
-
-  // Умножение матриц корректной размерности
   tcase_add_test(tcase, mult_matrix_normal_one);
   tcase_add_test(tcase, mult_matrix_normal_two);
   tcase_add_test(tcase, mult_matrix_normal_three);
   tcase_add_test(tcase, mult_matrix_normal_four);
   tcase_add_test(tcase, mult_matrix_normal_five);
-
-  // Умножение матриц некорректной размерности
   tcase_add_test(tcase, mult_matrix_isnot_correct_size_one);
   tcase_add_test(tcase, mult_matrix_isnot_correct_size_two);
   tcase_add_test(tcase, mult_matrix_isnot_correct_size_three);
   tcase_add_test(tcase, mult_matrix_isnot_correct_size_four);
   tcase_add_test(tcase, mult_matrix_isnot_correct_size_five);
-
-  // Умножение несуществующих матриц
   tcase_add_test(tcase, mult_matrix_isnot_matrix_one);
   tcase_add_test(tcase, mult_matrix_isnot_matrix_two);
   tcase_add_test(tcase, mult_matrix_isnot_matrix_three);
-
-  // Транспонирование матрицы заведомо корректной
   tcase_add_test(tcase, transpose_normal_one);
   tcase_add_test(tcase, transpose_normal_two);
   tcase_add_test(tcase, transpose_normal_three);
   tcase_add_test(tcase, transpose_normal_four);
   tcase_add_test(tcase, transpose_normal_five);
-
-  // Транспонирование нулевой матрицы
   tcase_add_test(tcase, transpose_isnot_matrix_one);
   tcase_add_test(tcase, transpose_isnot_matrix_two);
   tcase_add_test(tcase, transpose_isnot_matrix_three);
-
-  // Получение матрицы алгебраических дополнений заведомо корректной
   tcase_add_test(tcase, calc_complements_normal_one);
   tcase_add_test(tcase, calc_complements_normal_two);
   tcase_add_test(tcase, calc_complements_normal_three);
   tcase_add_test(tcase, calc_complements_normal_four);
   tcase_add_test(tcase, calc_complements_normal_five);
-
-  // Получение матрицы алгебраических дополнений заведома некорректной
   tcase_add_test(tcase, calc_complements_isnot_correct_one);
   tcase_add_test(tcase, calc_complements_isnot_correct_two);
   tcase_add_test(tcase, calc_complements_isnot_correct_three);
   tcase_add_test(tcase, calc_complements_isnot_correct_four);
   tcase_add_test(tcase, calc_complements_isnot_correct_five);
-
-  // Получение матрицы алгебраических дополнениц из нуль-матрицы
   tcase_add_test(tcase, calc_complements_isnot_matrix_one);
   tcase_add_test(tcase, calc_complements_isnot_matrix_two);
   tcase_add_test(tcase, calc_complements_isnot_matrix_three);
-  // Получение матрицы алгебраических дополнений из матрицы некорректного
-  // размера
   tcase_add_test(tcase, calc_complements_isnot_correct_m_one);
   tcase_add_test(tcase, calc_complements_isnot_correct_m_two);
   tcase_add_test(tcase, calc_complements_isnot_correct_m_three);
-
-  // Получение определителя матрицы из заведомо верной матрицы
   tcase_add_test(tcase, determinant_normal_one);
   tcase_add_test(tcase, determinant_normal_two);
   tcase_add_test(tcase, determinant_normal_three);
   tcase_add_test(tcase, determinant_normal_four);
   tcase_add_test(tcase, determinant_normal_five);
-
-  // Получение определителя для несуществующей матрицы
   tcase_add_test(tcase, determinant_isnot_matrix);
-
-  // Получение определителя для некорректной матрицы
   tcase_add_test(tcase, determinant_isnot_correct_matrix_one);
   tcase_add_test(tcase, determinant_isnot_correct_matrix_two);
   tcase_add_test(tcase, determinant_isnot_correct_matrix_three);
   tcase_add_test(tcase, determinant_isnot_correct_matrix_four);
   tcase_add_test(tcase, determinant_isnot_correct_matrix_five);
-
-  // Обратная матрица заведомо корректного размера
   tcase_add_test(tcase, inverse_matrix_normal_one);
   tcase_add_test(tcase, inverse_matrix_normal_two);
   tcase_add_test(tcase, inverse_matrix_normal_three);
   tcase_add_test(tcase, inverse_matrix_normal_four);
   tcase_add_test(tcase, inverse_matrix_normal_five);
-
-  // Обратная матрица для нуль-указателя
   tcase_add_test(tcase, inverse_matrix_isnot_matrix_one);
   tcase_add_test(tcase, inverse_matrix_isnot_matrix_two);
   tcase_add_test(tcase, inverse_matrix_isnot_matrix_three);
-
-  // Обратная матрица заведома некорректного размера
   tcase_add_test(tcase, inverse_matrix_isnot_correct_one);
   tcase_add_test(tcase, inverse_matrix_isnot_correct_two);
   tcase_add_test(tcase, inverse_matrix_isnot_correct_three);
   tcase_add_test(tcase, inverse_matrix_isnot_correct_four);
   tcase_add_test(tcase, inverse_matrix_isnot_correct_five);
-
   suite_add_tcase(suite, tcase);
   return suite;
 }
