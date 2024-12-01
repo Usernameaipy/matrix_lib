@@ -2011,6 +2011,61 @@ START_TEST(inverse_matrix_isnot_matrix_three) {
 }
 END_TEST
 
+START_TEST(inverse_matrix_isnot_correct_one) {
+  matrix_t *mtr = NULL, *result = NULL;
+  int stat = create_matrix(3, 4, &mtr);
+  ck_assert_int_eq(stat, ok);
+  stat = inverse_matrix(mtr, &result);
+  ck_assert_int_eq(stat, ncm_error);
+  if (mtr) remove_matrix(&mtr);
+  if (result) remove_matrix(&result);
+}
+END_TEST
+
+START_TEST(inverse_matrix_isnot_correct_two) {
+  matrix_t *mtr = NULL, *result = NULL;
+  int stat = create_matrix(12, 24, &mtr);
+  ck_assert_int_eq(stat, ok);
+  stat = inverse_matrix(mtr, &result);
+  ck_assert_int_eq(stat, ncm_error);
+  if (mtr) remove_matrix(&mtr);
+  if (result) remove_matrix(&result);
+}
+END_TEST
+
+START_TEST(inverse_matrix_isnot_correct_three) {
+  matrix_t *mtr = NULL, *result = NULL;
+  int stat = create_matrix(21, 12, &mtr);
+  ck_assert_int_eq(stat, ok);
+  stat = inverse_matrix(mtr, &result);
+  ck_assert_int_eq(stat, ncm_error);
+  if (mtr) remove_matrix(&mtr);
+  if (result) remove_matrix(&result);
+}
+END_TEST
+
+START_TEST(inverse_matrix_isnot_correct_four) {
+  matrix_t *mtr = NULL, *result = NULL;
+  int stat = create_matrix(42, 24, &mtr);
+  ck_assert_int_eq(stat, ok);
+  stat = inverse_matrix(mtr, &result);
+  ck_assert_int_eq(stat, ncm_error);
+  if (mtr) remove_matrix(&mtr);
+  if (result) remove_matrix(&result);
+}
+END_TEST
+
+START_TEST(inverse_matrix_isnot_correct_five) {
+  matrix_t *mtr = NULL, *result = NULL;
+  int stat = create_matrix(89, 98, &mtr);
+  ck_assert_int_eq(stat, ok);
+  stat = inverse_matrix(mtr, &result);
+  ck_assert_int_eq(stat, ncm_error);
+  if (mtr) remove_matrix(&mtr);
+  if (result) remove_matrix(&result);
+}
+END_TEST
+
 Suite *MatrixTest(void) {
   Suite *suite = suite_create("MatrixTest");
   TCase *tcase = tcase_create("MatrixTest");
@@ -2221,7 +2276,13 @@ Suite *MatrixTest(void) {
   tcase_add_test(tcase, inverse_matrix_isnot_matrix_one);
   tcase_add_test(tcase, inverse_matrix_isnot_matrix_two);
   tcase_add_test(tcase, inverse_matrix_isnot_matrix_three);
+
   // Обратная матрица заведома некорректного размера
+  tcase_add_test(tcase, inverse_matrix_isnot_correct_one);
+  tcase_add_test(tcase, inverse_matrix_isnot_correct_two);
+  tcase_add_test(tcase, inverse_matrix_isnot_correct_three);
+  tcase_add_test(tcase, inverse_matrix_isnot_correct_four);
+  tcase_add_test(tcase, inverse_matrix_isnot_correct_five);
 
   suite_add_tcase(suite, tcase);
   return suite;
