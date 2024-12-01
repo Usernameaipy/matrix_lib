@@ -1752,6 +1752,90 @@ START_TEST(determinant_normal_five) {
 }
 END_TEST
 
+START_TEST(determinant_isnot_matrix) {
+  matrix_t *mtr = NULL;
+  double result = 0;
+  int stat = determinant(mtr, &result);
+  ck_assert_int_eq(stat, ncm_error);
+  if (mtr) remove_matrix(&mtr);
+}
+END_TEST
+
+START_TEST(determinant_isnot_correct_matrix_one) {
+  matrix_t *mtr = NULL;
+  double result = 0;
+  int val = 1;
+  int stat = create_matrix(3, 4, &mtr);
+  for (int i = 0; i < mtr->rows; i++) {
+    for (int j = 0; j < mtr->columns; j++) {
+      mtr->matrix[i][j] = val++;
+    }
+  }
+  stat = determinant(mtr, &result);
+  ck_assert_int_eq(stat, ncm_error);
+  if (mtr) remove_matrix(&mtr);
+}
+
+START_TEST(determinant_isnot_correct_matrix_two) {
+  matrix_t *mtr = NULL;
+  double result = 0;
+  int val = 1;
+  int stat = create_matrix(21, 12, &mtr);
+  for (int i = 0; i < mtr->rows; i++) {
+    for (int j = 0; j < mtr->columns; j++) {
+      mtr->matrix[i][j] = val++;
+    }
+  }
+  stat = determinant(mtr, &result);
+  ck_assert_int_eq(stat, ncm_error);
+  if (mtr) remove_matrix(&mtr);
+}
+
+START_TEST(determinant_isnot_correct_matrix_three) {
+  matrix_t *mtr = NULL;
+  double result = 0;
+  int val = 1;
+  int stat = create_matrix(14, 15, &mtr);
+  for (int i = 0; i < mtr->rows; i++) {
+    for (int j = 0; j < mtr->columns; j++) {
+      mtr->matrix[i][j] = val++;
+    }
+  }
+  stat = determinant(mtr, &result);
+  ck_assert_int_eq(stat, ncm_error);
+  if (mtr) remove_matrix(&mtr);
+}
+
+START_TEST(determinant_isnot_correct_matrix_four) {
+  matrix_t *mtr = NULL;
+  double result = 0;
+  int val = 1;
+  int stat = create_matrix(75, 32, &mtr);
+  for (int i = 0; i < mtr->rows; i++) {
+    for (int j = 0; j < mtr->columns; j++) {
+      mtr->matrix[i][j] = val++;
+    }
+  }
+  stat = determinant(mtr, &result);
+  ck_assert_int_eq(stat, ncm_error);
+  if (mtr) remove_matrix(&mtr);
+}
+
+START_TEST(determinant_isnot_correct_matrix_five) {
+  matrix_t *mtr = NULL;
+  double result = 0;
+  int val = 1;
+  int stat = create_matrix(12, 21, &mtr);
+  for (int i = 0; i < mtr->rows; i++) {
+    for (int j = 0; j < mtr->columns; j++) {
+      mtr->matrix[i][j] = val++;
+    }
+  }
+  stat = determinant(mtr, &result);
+  ck_assert_int_eq(stat, ncm_error);
+  if (mtr) remove_matrix(&mtr);
+}
+
 Suite *MatrixTest(void) {
   Suite *suite = suite_create("MatrixTest");
   TCase *tcase = tcase_create("MatrixTest");
@@ -1940,8 +2024,16 @@ Suite *MatrixTest(void) {
   tcase_add_test(tcase, determinant_normal_three);
   tcase_add_test(tcase, determinant_normal_four);
   tcase_add_test(tcase, determinant_normal_five);
+
   // Получение определителя для несуществующей матрицы
+  tcase_add_test(tcase, determinant_isnot_matrix);
+
   // Получение определителя для некорректной матрицы
+  tcase_add_test(tcase, determinant_isnot_correct_matrix_one);
+  tcase_add_test(tcase, determinant_isnot_correct_matrix_two);
+  tcase_add_test(tcase, determinant_isnot_correct_matrix_three);
+  tcase_add_test(tcase, determinant_isnot_correct_matrix_four);
+  tcase_add_test(tcase, determinant_isnot_correct_matrix_five);
 
   suite_add_tcase(suite, tcase);
   return suite;

@@ -3,7 +3,7 @@
 int determinant(matrix_t *mtr, double *result) {
   int stat = ok;
   if (!mtr || !mtr->matrix) stat = ncm_error;
-  if (mtr->columns != mtr->rows) stat = ncm_error;
+  if (stat == ok && (mtr->columns != mtr->rows)) stat = ncm_error;
   if (stat == ok) {
     *result = recurse_det(mtr);
   }
