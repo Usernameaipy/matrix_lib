@@ -49,7 +49,7 @@ clean_o :
 	rm -rf test/*.o
 	rm -rf enought_func/*.o
 
-clean : clean_o
+clean : clean_o clean_lib
 	rm -rf $(BUILDDIR)*
 
 rebuild : clean all
@@ -59,6 +59,18 @@ style_check :
 
 style :
 	find . -name "*.c" -o -name "*.h" | xargs clang-format -i --style=Google
+
+matrix.a : math/calc_complements.o math/create_matrix.o math/determinant.o math/eq_matrix.o math/inverse_matrix.o math/mult_matrix.o math/mult_number.o math/remove_matrix.o math/sub_matrix.o math/sum_matrix.o math/transpose.o
+	ar rcs $@ $^
+	make clean_o
+
+matrix.so : math/calc_complements.o math/create_matrix.o math/determinant.o math/eq_matrix.o math/inverse_matrix.o math/mult_matrix.o math/mult_number.o math/remove_matrix.o math/sub_matrix.o math/sum_matrix.o math/transpose.o
+	$(CC) -shared -o $@ $^
+	make clean_o
+
+clean_lib :
+	rm -rf *.a
+	rm -rf *.so
 
 valgrind : clean
 	make test && CK_FORK=no valgrind --vgdb=no --leak-check=full --show-reachable=yes --show-leak-kinds=all --track-origins=yes --verbose --read-var-info=yes ./$(BUILDDIR)test
